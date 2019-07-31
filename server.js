@@ -12,11 +12,6 @@ app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/views'));
 
-// send licks
-app.get('/', function(req, res) {
-	res.send('licks');
-});
-
 // start server
 var server = app.listen(sys.PORT, function() {
 	console.log('The Lick server listening on port %d', server.address().port);

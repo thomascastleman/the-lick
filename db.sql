@@ -4,6 +4,7 @@ CREATE DATABASE lick;
 
 USE lick;
 
+-- reportings of the lick
 CREATE TABLE reportings (
 	uid INT NOT NULL AUTO_INCREMENT,
 	date_reported DATETIME,
