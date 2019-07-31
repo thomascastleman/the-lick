@@ -21,7 +21,3 @@ app.get('/', function(req, res) {
 var server = app.listen(sys.PORT, function() {
 	console.log('The Lick server listening on port %d', server.address().port);
 });
-
-/*
-'https://www.youtube.com/oembed?url=http%3A//www.youtube.com/watch%3Fv%3D' + <video id> + '&format=json'
-*/
