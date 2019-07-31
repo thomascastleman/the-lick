@@ -17,16 +17,21 @@ module.exports = {
 
 	/*	String -> String
 		Extract video title, given URL. */
-	getVideoTitle: function(url, callback) {
-		var url = settings.youtube_url_info_1 + url + settings.youtube_url_info_2
+	getVideoTitle: function(videoID, cb) {
+		// format URL to retrieve video meta
+		var url = settings.youtube_url_info_1 + videoID + settings.youtube_url_info_2
+		
+		// make request to video metadata endpoint
 		request(url, { json: true }, (err, res, body) => {
-  			if (err) { return console.log(err); }
-			//	console.log(body)
-				callback(err,body);
-			});
-		// Use this:
-		// 'https://www.youtube.com/oembed?url=http%3A//www.youtube.com/watch%3Fv%3D' + <video id> + '&format=json'
+			cb(err,body);
+		});
+	},
 
+	/*	String -> String
+		Extract video ID embedded in its URL. */
+	getVideoID: function(url, cb) {
+		// Use Regex
+		// Links look like this: https://www.youtube.com/watch?v=30FTr6G53VU
 	}
 
 }
