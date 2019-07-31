@@ -27,6 +27,18 @@ module.exports = {
 		// Use this:
 		// 'https://www.youtube.com/oembed?url=http%3A//www.youtube.com/watch%3Fv%3D' + <video id> + '&format=json'
 
+	},
+
+	getId:function(url){
+
+		var video_id = url.split('v=')[1];
+		var ampersandPosition = video_id.indexOf('&');
+
+		if(ampersandPosition != -1) {
+  			video_id = video_id.substring(0, ampersandPosition);
+		} 
+
+		return video_id 
 	}
 
 }
