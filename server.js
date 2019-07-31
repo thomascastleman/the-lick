@@ -4,6 +4,7 @@ const mustacheExpress 	= require('mustache-express');
 const bodyParser 		= require('body-parser');
 const creds				= require('./credentials.js');
 const sys 				= require('./settings.js');
+const youtube			= require('./youtube.js')
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
