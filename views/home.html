@@ -29,7 +29,7 @@
 			player = new YT.Player('licks', { 
 				playerVars: { 
 					'videoId': 'zGG0QYjdgJQ', 
-					'playlist': '{{video_ids}}', 
+					'playlist': '{{#video_ids}}{{video_id}},{{/video_ids}}', 
 					'color': 'white', 
 					'controls': 1, 
 					'loop': 1, 
