@@ -1,0 +1,5 @@
+
+DROP DATABASE IF EXISTS lick;
+CREATE DATABASE lick;
+
+USE lick;
