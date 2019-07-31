@@ -1,0 +1,19 @@
+{
+  "name": "the-lick",
+  "version": "1.0.0",
+  "description": "An online platform for reporting occurrences of the lick.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thomascastleman/the-lick.git"
+  },
+  "author": "Thomas Castleman & Johnny Lindbergh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thomascastleman/the-lick/issues"
+  },
+  "homepage": "https://github.com/thomascastleman/the-lick#readme"
+}
