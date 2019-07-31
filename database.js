@@ -16,7 +16,7 @@ module.exports = {
 
 	// adds a new report to the database
 	addReport: function(cb) {
-
+		con.query('INSERT INTO reportings (date_reported, reporter_name, url, video_id, video_title')
 	},
 
 	// removes a report from database
