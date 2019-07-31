@@ -12,6 +12,8 @@ app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/views'));
 
+const routes = require('./routes.js').init(app);
+
 // start server
 var server = app.listen(sys.PORT, function() {
 	console.log('The Lick server listening on port %d', server.address().port);

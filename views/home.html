@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Lick</title>
+	<style>
+		html, body {
+			margin:0;
+			padding:0;
+			border:0;
+			height:100%;
+			overflow:auto;
+		}
+
+		#licks {
+			border:0;
+			position:fixed;
+			top:0;
+			left:0;
+			right:0;
+			bottom:0;
+			width:100%;
+			height:100%;
+		}
+	</style>
+	<script src="https://www.youtube.com/iframe_api"></script>
+	<script>
+		var player; 
+		function onYouTubeIframeAPIReady() { 
+			player = new YT.Player('licks', { 
+				playerVars: { 
+					'videoId': 'zGG0QYjdgJQ', 
+					'playlist': 'elTPMgkvWU4,s1tAYmMjLdY,CMX2lPum_pg,_GOR5gvQwDI,TIy3n2b7V9k,r00ikilDxW4,ei8hPkyJ0bU,0aCJJkR2BvI,YgGLl8CanQo,qRFhNZNu_xw,msumWLbq1Dk,kPBzTxZQG5Q,gGdGFtwCNBE,5NPBIwQyPWE,eHbNU9WuVgw,r0U0AlLVqpk,l9WKZpC9UbU,uhG-vLZrb-g,BiaF9iDHW_w,tOsck7jYUsE,,QfcLcDBII78,GqM3Dr7agjY,JGPgxoIPY6Q,7Xf-Lesrkuc,gPDcwjJ8pLg,vc6vs-l5dkc,3FTS2tdmyYM,k4V3Mo61fJM,SY-c-_sZ8LI,RUi54JTgL5s,desJKYvdq9A,X9fLbfzCqWw,AZka3E37k6w,RRKJiM9Njr8,tgB_JwcuPg0,6Ux6SlOE9Qk,2tLf1JO5bvE,hUO-sRLotOI', 
+					'color': 'white', 
+					'controls': 1, 
+					'loop': 1, 
+					'showinfo': 0, 
+					'autoplay': 1, 
+					'rel': 0
+				}, 
+				events: { 
+					'onStateChange': next 
+				} 
+			}); 
+		}
+
+		function next(event) { 
+			if (event.data == YT.PlayerState.CUED) { 
+				player.playVideo(); 
+			} 
+			if (event.data == YT.PlayerState.ENDED) { 
+				player.nextVideo(); 
+			} 
+		}
+	</script>
+</head>
+<body>
+	<div id="licks"></div>
+</body>
+</html>
