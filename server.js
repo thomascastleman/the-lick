@@ -13,12 +13,12 @@ app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/views'));
 
+
 // send licks
 app.get('/', function(req, res) {
 
 
 });
-
 
 // start server
 var server = app.listen(sys.PORT, function() {
