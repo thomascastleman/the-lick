@@ -15,15 +15,28 @@ module.exports = {
 		return cleanURL
 	},
 
-	/*	String -> String
-		Extract video title, given URL. */
-	getVideoTitle: function(videoID, cb) {
+	/*	String -> JSON
+		Extract all video metadata, given ID. */
+	getVideoMeta: function(videoID, cb) {
 		// format URL to retrieve video meta
 		var url = settings.youtube_url_info_1 + videoID + settings.youtube_url_info_2
 		
 		// make request to video metadata endpoint
 		request(url, { json: true }, (err, res, body) => {
-			cb(err,body);
+			cb(err, body);
+		});
+	},
+
+	/* String -> String
+		Extract video title, given ID */
+	getVideoTitle: function(videoID, cb) {
+		// get all metadata, extract title
+		module.exports.getVideoMeta(videoID, function(err, meta) {
+			if (!err) {
+				cb(err, meta.title);
+			} else {
+				cb(err);
+			}
 		});
 	},
 
@@ -38,6 +51,12 @@ module.exports = {
 		}
 
 		return video_id;
+	},
+
+	/*	String -> Integer
+		Parse the string timestamp for the occurrence of the lick into an integer duration of seconds. */
+	parseStartTime: function(start) {
+		return 61; // lol
 	}
 
 }
