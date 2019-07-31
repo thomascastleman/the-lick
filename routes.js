@@ -2,6 +2,7 @@
 /*
 	routes.js: System routes
 */
+const database = require('./database.js');
 
 module.exports = {
 
@@ -9,7 +10,10 @@ module.exports = {
 
 		// home page
 		app.get('/', function(req, res) {
-			res.render('home.html');
+			//console.log("//")
+			database.getLicked(function(video_ids){
+				res.render('home.html',{video_ids:video_ids});
+			});
 		});
 
 		// individual lick reporting page

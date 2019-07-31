@@ -16,3 +16,10 @@ CREATE TABLE reportings (
 	notes TEXT,						-- extra notes regarding this instance of the lick
 	PRIMARY KEY (uid)
 );
+
+INSERT INTO reportings (date_reported, reporter_name, url, video_id, video_title) 
+VALUES (curdate(), 'Johnny Lindbergh', 'https://www.youtube.com/watch?v=30FTr6G53VU','30FTr6G53VU','Giant Steps');
+
+INSERT INTO reportings (date_reported, reporter_name, url, video_id, video_title) 
+VALUES (curdate(), 'Thomas Regularhouseman', 'https://www.youtube.com/watch?v=30FTr6G53VU','30FTr6G53VU','Giant Steps');
+

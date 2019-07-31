@@ -22,5 +22,17 @@ module.exports = {
 	// removes a report from database
 	deleteReport: function(uid, cb) {
 
+	},
+
+	getLicked: function(callback){
+		console.log("licking")
+		con.query('SELECT video_id from reportings;', function(err, licks){
+			if (!err){
+				console.log(licks)
+				callback(licks);
+			} else {
+				console.log(err);
+			}
+		});
 	}
 }
