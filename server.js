@@ -19,5 +19,5 @@ app.get('/', function(req, res) {
 
 // start server
 var server = app.listen(sys.PORT, function() {
-	console.log('Server listening on port %d', server.address().port);
+	console.log('The Lick server listening on port %d', server.address().port);
 });
