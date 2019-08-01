@@ -3,14 +3,37 @@
 <head>
 	<title>The Lick</title>
 	<style>
+	.header {
+
+	text-align:left;
+	width:100%;
+	position:fixed;
+	top:0;
+	left: 0;
+	padding-top: 20px;
+	padding-bottom: 15px;
+	padding-left:10px;
+	padding-right:10px;
+	z-index:3;
+	background: rgba(100,100,100,0.9);
+	color: #f1f1f1;
+	height: 55px;
+}
 		html, body {
-			margin:0;
+			margin:10% !important;
 			padding:0;
 			border:0;
-			height:100%;
-			overflow:auto;
-		}
 
+			height:50% !important;
+			overflow:scroll;
+		}
+		video {
+  			width: 50%    !important;
+  			height: auto   !important;
+		}
+		#ytp-popup{
+			height 50%;
+		}
 		#licks {
 			border:0;
 			position:fixed;
@@ -54,6 +77,18 @@
 	</script>
 </head>
 <body>
-	<div id="licks"></div>
+	<div class="header" id='header'>
+		<h2 style="display:inline">The Lick</h2><a href="/report"><div id="button" style="float:right">Report a Sighting</div></a>
+	</div>
+	<div id="licks">
+		<table>
+			<th>Video name</th>
+			<th>Lick time</th>
+			<th>User</th>
+			<th>Time of report</th>
+			<th>notes</th>
+
+		</table>
+	</div>
 </body>
 </html>
