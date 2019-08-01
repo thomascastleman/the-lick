@@ -26,4 +26,7 @@ VALUES (NOW(), 'Thomas Regularhouseman', 'https://www.youtube.com/watch?v=wLthw2
 INSERT INTO reportings (date_reported, reporter_name, url, video_id, video_title, lick_start, notes) 
 VALUES (NOW(), 'Coco Castleman', 'https://www.youtube.com/watch?v=8YK-RW5SUOg','8YK-RW5SUOg',"Coco's licks",69, "lkajhs;kldjhflaksdjhflkjahsldfkjh;lkashdfl;ijhjkh");
 
+INSERT INTO reportings (date_reported, url, video_id, video_title, lick_start, notes) 
+VALUES (NOW(),  'https://www.youtube.com/watch?v=8YK-RW5SUOg','8YK-RW5SUOg',"Coco's licks",69, "lkajhs;kldjhflaksdjhflkjahsldfkjh;lkashdfl;ijhjkh");
+
 

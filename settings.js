@@ -14,5 +14,7 @@ module.exports = {
 	},
 
 	// number of recent reports to display on homepage
-	reportsOnHome: 100
+	reportsOnHomeTable: 100,
+	reportsOnHomeVideos:100
+
 }

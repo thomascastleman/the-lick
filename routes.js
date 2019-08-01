@@ -20,16 +20,23 @@ module.exports = {
 			// This is kind of dumb eek:
 
 			// get all video IDs
-			db.getRandomReportings(sys.reportsOnHome,function(err, video_ids){
+			db.getRandomReportings(sys.reportsOnHomeVideos,function(err, video_ids){
 				if (!err) {
 					render.video_ids = video_ids;
 
 					// get subset of reportings
-					db.getReportingsLimited(sys.reportsOnHome, function(err, licks) {
+					db.getReportingsLimited(sys.reportsOnHomeTable, function(err, licks) {
 						if (!err) {
 							render.recentLicks = licks;
 
-							//console.log(licks);
+							for (var row = 0; row < licks.length; row++){
+								// parse date reported into human readable format
+								var d = moment(licks[row].date_reported);
+								if (d && d.isValid()) licks[row].date_reported = d.format('MMMM Do, YYYY [at] h:mm A');
+
+								licks[row].reporter_exists = licks[row].reporter_name !== null;
+							}
+
 
 							res.render('home.html', render);
 						} else {
