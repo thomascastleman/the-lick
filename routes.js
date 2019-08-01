@@ -25,7 +25,7 @@ module.exports = {
 					db.getReportingsLimited(sys.reportsOnHomeTable, function(err, licks) {
 						if (!err) {
 							render.recentLicks = licks;
-
+							console.log(licks)
 							for (var row = 0; row < licks.length; row++){
 								// parse date reported into human readable format
 								var d = moment(licks[row].date_reported);
