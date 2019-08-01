@@ -16,6 +16,9 @@ module.exports = {
 		app.get('/', function(req, res) {
 			var render = {};
 
+
+			// This is kind of dumb eek:
+
 			// get all video IDs
 			db.getRandomReportings(sys.reportsOnHome,function(err, video_ids){
 				if (!err) {
@@ -77,12 +80,15 @@ module.exports = {
 
 		// post a new report of the lick
 		app.post('/report', function(req, res) {
+			// check for a t offset parameter in the URL itself 
+			var parsedT = yt.parsePlaybackOffset(req.body.url);
+
 			// video data to give to addReporting function
 			videoData = {
 				reporter_name: req.body.reporter_name || null,
-				url: yt.cleanURL(req.body.url),
+				url: req.body.url,
 				video_id: yt.getVideoID(req.body.url),
-				lick_start: yt.parseStartTimeToSec(req.body.lick_start),
+				lick_start: parsedT || yt.parseStartTimeToSec(req.body.lick_start),
 				notes: req.body.notes || null
 			};
 
