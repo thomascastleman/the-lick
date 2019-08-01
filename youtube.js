@@ -15,6 +15,21 @@ module.exports = {
 		return url.replace(/&t=\d+/g, "");
 	},
 
+	/*	String -> Integer
+		Extract the value of the t parameter from a given YouTube URL.
+		If none found, return null. */
+	parsePlaybackOffset: function(url) {
+		// attempt to match value of t parameter in URL
+		var match = /(\?|&)t=(\d+)/g.exec(url);
+
+		// if valid match exists
+		if (match && match.length > 2) {
+			return match[2];
+		} else {
+			return null;
+		}
+	},
+
 	/*	String -> JSON
 		Extract all video metadata, given ID. */
 	getVideoMeta: function(videoID, cb) {
@@ -43,8 +58,27 @@ module.exports = {
 	/*	String -> String
 		Extract the video ID from the URL. */
 	getVideoID: function(url) {
-		// regex for extracting video ID from URL
-		const videoIDExpr = /\?v=(\w+)/g;
+		// regular expression used to extract ID from URL (depends on form of URL)
+		var videoIDExpr;
+		
+		if (/https:\/\/www\.youtube\.com\/watch\?v=.*/g.test(url)) {
+			console.log("Form 1");
+
+			url += '&';
+			videoIDExpr = /https:\/\/www\.youtube\.com\/watch\?v=(.+?)(?=&)/g;
+
+		} else if (/https:\/\/www\.youtube\.com\/v\/.*/g.test(url)) {
+			console.log("Form 2");
+
+			url += '?';
+			videoIDExpr = /https:\/\/www\.youtube\.com\/v\/(.+?)(?=\?)/g;
+
+		} else if (/https:\/\/youtu\.be\/.*/g.test(url)) {
+			console.log("Form 3");
+
+			url += '?';
+			videoIDExpr = /https:\/\/youtu\.be\/(.+?)(?=\?)/g;			
+		}
 
 		// use regex to get ID in ?v parameter
 		var match = videoIDExpr.exec(url);
@@ -115,3 +149,30 @@ module.exports = {
 	}
 
 }
+
+
+// var urls = [
+// 	'https://www.youtube.com/watch?v=30FTr6G53VU',
+// 	'https://www.youtube.com/watch?v=-wtIMTCHWuI',
+// 	'https://www.youtube.com/watch?v=I-VY-zs2eiY',
+// 	'https://www.youtube.com/watch?v=30FTr6G53VU&t=261',
+// 	'https://www.youtube.com/watch?v=30FTr6G53VU&t=261&feature=youtu.be&t=261',
+// 	'https://www.youtube.com/v/-wtIMTCHWuI?version=3&autohide=1',
+// 	'https://www.youtube.com/v/I-VY-zs2eiY?version=3&autohide=1',
+// 	'https://www.youtube.com/v/I-VY-zs2eiY?',
+// 	'https://youtu.be/-wtIMTCHWuI',
+// 	'https://youtu.be/30FTr6G53VU?t=4'
+// ];
+
+
+// for (var i = 0; i < urls.length; i++) {
+// 	// var id = module.exports.getVideoID(urls[i]);
+
+// 	// console.log(urls[i]);
+// 	// console.log(id);
+// 	// console.log();
+
+// 	console.log(urls[i]);
+// 	console.log(module.exports.parsePlaybackOffset(urls[i]));
+// 	console.log();
+// }

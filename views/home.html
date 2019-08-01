@@ -85,13 +85,14 @@
 	</div>
 	<div id="licks"></div>
 	<div>
+		<h2>Recent Sightings</h2>
 		<table>
 			{{#recentLicks}}
 			<tr>
 				<td><img src="{{thumbnail}}"/></td>
 				<td><a href="/lick/{{uid}}">{{video_title}}</a></td>
 				<td>{{notes}}</td>
-				<td>Reported {{date_reported}} by {{reporter_name}}</td>
+				<td>Reported {{date_reported}}{{#reporter_exists}} by {{reporter_name}}{{/reporter_exists}}</td>
 			</tr>
 			{{/recentLicks}}
 		</table>

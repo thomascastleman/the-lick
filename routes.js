@@ -16,6 +16,9 @@ module.exports = {
 		app.get('/', function(req, res) {
 			var render = {};
 
+
+			// This is kind of dumb eek:
+
 			// get all video IDs
 			db.getAllReportings(function(err, video_ids){
 				if (!err) {
