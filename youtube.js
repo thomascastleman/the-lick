@@ -6,6 +6,10 @@
 const request = require('request');
 const sys = require('./settings.js')
 
+
+// regex for extracting video ID from URL
+const videoIDExpr = /\?v=(\w+)/g;
+
 module.exports = {
 
 	/*	String -> String
@@ -43,27 +47,34 @@ module.exports = {
 	/*	String -> String
 		Extract the video ID from the URL. */
 	getVideoID: function(url) {
-		var video_id = url.split('v=')[1];
-		var ampersandPosition = video_id.indexOf('&');
+		// reset and use regex to get ID in ?v parameter
+		videoIDExpr.lastIndex = 0;
+		var match = videoIDExpr.exec(url);
 
-		if (ampersandPosition != -1) {
-  			video_id = video_id.substring(0, ampersandPosition);
+		// if match exists, return just the ID
+		if (match && match.length > 1) {
+			return match[1];
+		} else {
+			return null;
 		}
-
-		return video_id;
 	},
 
 	/*	String -> Integer
 		Parse the string timestamp for the occurrence of the lick into an integer duration of seconds. */
 	parseStartTime: function(start) {
 		return 61; // lol
+		
+
+
+		
 	}
 
 }
 
 
-var v1 = "https://www.youtube.com/watch?v=30FTr6G53VU&t=261";
-var v2 = "https://www.youtube.com/watch?v=30FTr6G53VU&t=261&feature=youtu.be&t=261";
+// var v0 = "not a urL";
+// var v1 = "https://www.youtube.com/watch?v=30FTr6G53VU&t=261";
+// var v2 = "https://www.youtube.com/watch?v=30FTr6G53VU&t=261&feature=youtu.be&t=261";
 
 
-console.log(module.exports.cleanURL(v1));
+// console.log(module.exports.getVideoID(v0));
