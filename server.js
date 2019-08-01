@@ -17,5 +17,5 @@ const routes = require('./routes.js').init(app);
 
 // start server
 var server = app.listen(sys.PORT, function() {
-	console.log('The Lick server licking on port %d', server.address().port);
+	console.log('The Lick server lickening on port %d', server.address().port);
 });

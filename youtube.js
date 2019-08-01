@@ -47,8 +47,10 @@ module.exports = {
 	/*	String -> String
 		Extract the video ID from the URL. */
 	getVideoID: function(url) {
-		// reset and use regex to get ID in ?v parameter
-		videoIDExpr.lastIndex = 0;
+		// regex for extracting video ID from URL
+		const videoIDExpr = /\?v=(\w+)/g;
+
+		// use regex to get ID in ?v parameter
 		var match = videoIDExpr.exec(url);
 
 		// if match exists, return just the ID
@@ -61,12 +63,59 @@ module.exports = {
 
 	/*	String -> Integer
 		Parse the string timestamp for the occurrence of the lick into an integer duration of seconds. */
-	parseStartTime: function(start) {
-		return 61; // lol
-		
+	parseStartTimeToSec: function(start) {
 
+		/* Expected Formats:
+			hh:mm:ss
+			h:mm:ss
+			mm:ss
+			m:ss
+		*/
 
-		
+		const includeHours = /(\d+):(\d+):(\d+)/g;
+		const noHours = /(\d+):(\d+)/g;
+
+		if (includeHours.test(start)) {
+			includeHours.lastIndex = 0;
+			var match = includeHours.exec(start);
+
+			// if valid match
+			if (match && match.length > 3) {
+				// convert to seconds
+				return (3600 * parseInt(match[1])) + (60 * parseInt(match[2])) + (parseInt(match[3]));
+			} else {
+				return null;
+			}
+		} else if (noHours.test(start)) {
+			noHours.lastIndex = 0;
+			var match = noHours.exec(start);
+
+			// if valid match
+			if (match && match.length > 2) {
+				// convert to seconds
+				return (60 * parseInt(match[1])) + parseInt(match[2]);
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	},
+
+	/*	Integer -> String
+		Converts from a duration in seconds to a time string */
+	convertToTimeString: function(duration) {
+		if (duration) {
+			var totalMin = Math.floor(duration / 60);
+			var h = Math.floor(totalMin / 60);
+			var m = totalMin % 60;
+			var s = duration % 60;
+
+			// convert to string, adding 0s appropriately
+			return (h > 0 ? h.toString() + ':' : '') + (m < 10 ? '0' : '') + m.toString() + ':' + (s < 10 ? '0' : '') + s.toString();
+		} else {
+			return null;
+		}
 	}
 
 }
@@ -78,3 +127,15 @@ module.exports = {
 
 
 // console.log(module.exports.getVideoID(v0));
+
+
+// var v0 =  "06:12:11";
+// var v1 = "2:23:01";
+// var v2 = "55:10";
+// var v3 = "7:21";
+// var v4 = "not a start time";
+// var v5 = "";
+
+// console.log(module.exports.parseStartTimeToSec(v3));
+
+// console.log(module.exports.convertToTimeString(''));
