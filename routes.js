@@ -21,7 +21,13 @@ module.exports = {
 
 		// individual lick reporting page
 		app.get('/lick/:id', function(req, res) {
-			res.render('lick.html');
+			var uid = req.params.id;
+			//console.log(uid)
+			database.getReporting(uid, function(lick){
+				console.log(lick)
+				res.render('lick.html', {report:lick});
+			});
+			
 		});
 
 		// get page for reporting the lick
