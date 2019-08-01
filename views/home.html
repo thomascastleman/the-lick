@@ -89,7 +89,9 @@
 		<table>
 			{{#recentLicks}}
 			<tr>
-				<td><img src="{{thumbnail}}"/></td>
+				<td><a href="/lick/{{uid}}"><img src="https://img.youtube.com/vi/{{video_id}}/hqdefault.jpg" height="90" width="120"><td></a></td>
+<!-- 				https://img.youtube.com/vi/<insert-youtube-video-id-here>/hqdefault.jpg
+ -->
 				<td><a href="/lick/{{uid}}">{{video_title}}</a></td>
 				<!-- <td>{{notes}}</td> -->
 				<td>Reported {{date_reported}}{{#reporter_exists}} by {{reporter_name}}{{/reporter_exists}}</td>
