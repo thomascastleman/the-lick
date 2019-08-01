@@ -20,7 +20,7 @@ module.exports = {
 			// This is kind of dumb eek:
 
 			// get all video IDs
-			db.getAllReportings(function(err, video_ids){
+			db.getRandomReportings(sys.reportsOnHome,function(err, video_ids){
 				if (!err) {
 					render.video_ids = video_ids;
 
@@ -29,7 +29,7 @@ module.exports = {
 						if (!err) {
 							render.recentLicks = licks;
 
-							console.log(licks);
+							//console.log(licks);
 
 							res.render('home.html', render);
 						} else {

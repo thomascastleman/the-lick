@@ -5,6 +5,7 @@
 
 var creds = require('./credentials.js');
 var mysql = require('mysql');
+var settings = require('./settings.js')
 
 var con = mysql.createConnection({
 	host: 'localhost',
@@ -29,12 +30,13 @@ module.exports = {
 		});
 	},
 
-	getAllReportings: function(cb){
-		con.query('SELECT * from reportings;', function(err, licks){
-			if (!err){
+	// get a random subset of lick reportings
+	getRandomReportings: function(limit, cb){
+		con.query('SELECT * from reportings ORDER BY RAND() LIMIT ?;',[limit], function(err, licks){
+			if (!err && licks !== undefined){
 				cb(err, licks);
 			} else {
-				cb(err);
+				cb(err || "Failed to retrieve random subset of licks.");
 			}
 		});
 	},
