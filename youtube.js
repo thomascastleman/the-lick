@@ -37,27 +37,27 @@ module.exports = {
 
 	/*	String -> String
 		Extract the video ID from the URL. */
-	getVideoID: function(url) {
+	getVideoID: function(url, cb) {
 		// regular expression used to extract ID from URL (depends on form of URL)
 		var videoIDExpr;
 		
 		if (/https:\/\/www\.youtube\.com\/watch\?v=.*/g.test(url)) {
-			console.log("Form 1");
-
+			// add & to end as though another parameter occurs (allows the lookahead to work)
 			url += '&';
 			videoIDExpr = /https:\/\/www\.youtube\.com\/watch\?v=(.+?)(?=&)/g;
 
 		} else if (/https:\/\/www\.youtube\.com\/v\/.*/g.test(url)) {
-			console.log("Form 2");
-
+			// add ? to end as though parameters occur (allows lookahead)
 			url += '?';
 			videoIDExpr = /https:\/\/www\.youtube\.com\/v\/(.+?)(?=\?)/g;
 
 		} else if (/https:\/\/youtu\.be\/.*/g.test(url)) {
-			console.log("Form 3");
-
+			// add ? to end as though parameters occur (allows lookahead)
 			url += '?';
 			videoIDExpr = /https:\/\/youtu\.be\/(.+?)(?=\?)/g;			
+		} else {
+			// if no URL format recognized, callback on error
+			return cb("The URL provided was in an unrecognizable format.");
 		}
 
 		// use regex to get ID in ?v parameter
@@ -65,9 +65,9 @@ module.exports = {
 
 		// if match exists, return just the ID
 		if (match && match.length > 1) {
-			return match[1];
+			cb(null, match[1]);
 		} else {
-			return null;
+			cb("Failed to extract video ID from provided URL.");
 		}
 	},
 

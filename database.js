@@ -54,7 +54,7 @@ module.exports = {
 
 	// get the reporting information by UID
 	getReporting: function(uid, cb){
-		con.query('SELECT * from reportings where uid = ?;',[uid], function(err, rows){
+		con.query('SELECT * from reportings where uid = ?;', [uid], function(err, rows){
 			if (!err && rows !== undefined && rows.length > 0) {
 				cb(err, rows[0]);
 			} else {
