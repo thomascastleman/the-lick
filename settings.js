@@ -4,7 +4,12 @@
 */
 
 module.exports = {
+	// server port
 	PORT: 8080,
-	youtube_url_info_1: "https://www.youtube.com/oembed?url=http%3A//www.youtube.com/watch%3Fv%3D",
-	youtube_url_info_2: "&format=json"
+
+	// endpoint for requesting metadata on a YouTube video
+	YOUTUBE_META_URL: {
+		prefix: "https://www.youtube.com/oembed?url=http%3A//www.youtube.com/watch%3Fv%3D",
+		suffix: "&format=json"
+	}
 }
