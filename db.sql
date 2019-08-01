@@ -12,7 +12,6 @@ CREATE TABLE reportings (
 	url VARCHAR(512),				-- video li(n)ck (without time shift)
 	video_id VARCHAR(32),			-- YouTube's ID for this video
 	video_title VARCHAR(64),		-- title of reported video
-	video_thumbnail VARCHAR(512),
 	lick_start INT,					-- in seconds, when in the video the lick occurs
 	notes TEXT,						-- extra notes regarding this instance of the lick
 	PRIMARY KEY (uid)
