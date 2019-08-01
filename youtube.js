@@ -6,10 +6,6 @@
 const request = require('request');
 const sys = require('./settings.js')
 
-
-// regex for extracting video ID from URL
-const videoIDExpr = /\?v=(\w+)/g;
-
 module.exports = {
 
 	/*	String -> String

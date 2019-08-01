@@ -6,6 +6,7 @@
 const moment = require('moment');
 const db = require('./database.js');
 const yt = require('./youtube.js');
+const sys = require('./settings.js');
 
 module.exports = {
 
@@ -13,10 +14,25 @@ module.exports = {
 
 		// home page
 		app.get('/', function(req, res) {
+			var render = {};
+
 			// get all video IDs
-			db.getLicked(function(err, video_ids){
+			db.getAllReportings(function(err, video_ids){
 				if (!err) {
-					res.render('home.html', { video_ids: video_ids });
+					render.video_ids = video_ids;
+
+					// get subset of reportings
+					db.getReportingsLimited(sys.reportsOnHome, function(err, licks) {
+						if (!err) {
+							render.recentLicks = licks;
+
+							console.log(licks);
+
+							res.render('home.html', render);
+						} else {
+							res.render('error.html', { raw: err });
+						}
+					});
 				} else {
 					res.render('error.html', { raw: err });
 				}
@@ -91,5 +107,5 @@ module.exports = {
 		});
 
 	}
-	
+
 }

@@ -3,22 +3,22 @@
 <head>
 	<title>The Lick</title>
 	<style>
-	.header {
+		.header {
+			text-align:left;
+			width:100%;
+			position:fixed;
+			top:0;
+			left: 0;
+			padding-top: 20px;
+			padding-bottom: 15px;
+			padding-left:10px;
+			padding-right:10px;
+			z-index:3;
+			background: rgba(100,100,100,0.9);
+			color: #f1f1f1;
+			height: 55px;
+		}
 
-	text-align:left;
-	width:100%;
-	position:fixed;
-	top:0;
-	left: 0;
-	padding-top: 20px;
-	padding-bottom: 15px;
-	padding-left:10px;
-	padding-right:10px;
-	z-index:3;
-	background: rgba(100,100,100,0.9);
-	color: #f1f1f1;
-	height: 55px;
-}
 		html, body {
 			margin:10% !important;
 			padding:0;
@@ -27,13 +27,16 @@
 			height:50% !important;
 			overflow:scroll;
 		}
+
 		video {
   			width: 50%    !important;
   			height: auto   !important;
 		}
+
 		#ytp-popup{
 			height 50%;
 		}
+
 		#licks {
 			border:0;
 			position:fixed;
@@ -41,8 +44,8 @@
 			left:0;
 			right:0;
 			bottom:0;
-			width:100%;
-			height:100%;
+			width:70%;
+			height:50%;
 		}
 	</style>
 	<script src="https://www.youtube.com/iframe_api"></script>
@@ -80,14 +83,17 @@
 	<div class="header" id='header'>
 		<h2 style="display:inline">The Lick</h2><a href="/report"><div id="button" style="float:right">Report a Sighting</div></a>
 	</div>
-	<div id="licks">
+	<div id="licks"></div>
+	<div>
 		<table>
-			<th>Video name</th>
-			<th>Lick time</th>
-			<th>User</th>
-			<th>Time of report</th>
-			<th>notes</th>
-
+			{{#recentLicks}}
+			<tr>
+				<td><img src="{{thumbnail}}"/></td>
+				<td><a href="/lick/{{uid}}">{{video_title}}</a></td>
+				<td>{{notes}}</td>
+				<td>Reported {{date_reported}} by {{reporter_name}}</td>
+			</tr>
+			{{/recentLicks}}
 		</table>
 	</div>
 </body>

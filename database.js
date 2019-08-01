@@ -29,16 +29,26 @@ module.exports = {
 		});
 	},
 
-	getLicked: function(callback){
+	getAllReportings: function(cb){
 		con.query('SELECT * from reportings;', function(err, licks){
 			if (!err){
-				callback(licks);
+				cb(err, licks);
 			} else {
 				cb(err);
 			}
 		});
 	},
 
+	// get a limited amount of reportings
+	getReportingsLimited: function(limit, cb) {
+		con.query('SELECT * from reportings ORDER BY date_reported DESC LIMIT ?;', [limit], function(err, licks){
+			if (!err){
+				cb(err, licks);
+			} else {
+				cb(err);
+			}
+		});
+	},
 
 	// get the reporting information by UID
 	getReporting: function(uid, cb){

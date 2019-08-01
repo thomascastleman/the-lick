@@ -11,5 +11,8 @@ module.exports = {
 	YOUTUBE_META_URL: {
 		prefix: "https://www.youtube.com/oembed?url=http%3A//www.youtube.com/watch%3Fv%3D",
 		suffix: "&format=json"
-	}
+	},
+
+	// number of recent reports to display on homepage
+	reportsOnHome: 100
 }
