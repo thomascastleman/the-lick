@@ -8,13 +8,6 @@ const sys = require('./settings.js')
 
 module.exports = {
 
-	/*	String -> String
-		Remove any time shift from end of YouTube URL */
-	cleanURL: function(url) {
-		// match t parameter anywhere in URL and replace with empty string
-		return url.replace(/&t=\d+/g, "");
-	},
-
 	/*	String -> Integer
 		Extract the value of the t parameter from a given YouTube URL.
 		If none found, return null. */
