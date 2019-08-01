@@ -1,0 +1,47 @@
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    font-family: 'Averia Sans Libre';
+    font-size: 14px;
+    background-color: black;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.navbar li {
+    float:left;
+}
+
+.navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px 16px;
+    text-decoration: none;
+}
+
+.navbar li a:hover {
+    background-color: #38322b;
+}
+
+/* push text titles for each link away from their icons */
+.navbar li a i {
+	margin-right: 5px;
+}
+
+/* push regular container content down past sticky navbar */
+.container {
+    margin-top: 100px;
+}

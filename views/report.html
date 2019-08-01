@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Make a Reporting | The Lick</title>
+	<title>Report a Lick | The Lick</title>
+	<link rel="stylesheet" type="text/css" href="/navbar.css">
 	<script>
 		
 	</script>
 </head>
 <body>
-	<h1>Report a Sighting of the Lick</h1>
-	<form action="/report" method="POST">
-		<input name="url" type="text" placeholder="YouTube Video URL" autocomplete="off"><br>
-		<input name="lick_start" placeholder="Time of Lick Occurrence" autocomplete="off"><br>
-		<p>Notes (Optional):</p><textarea name="notes"></textarea><br>
-		<input name="reporter_name" type="text" placeholder="Your Name (Optional)" autocomplete="off"><br>
-		<button type="submit">Report Lick</button>
-	</form>
+	<div class="navbar">
+		<ul>
+			<li><a href="/">The Lick</a></li>
+			<div style="float:right">
+				<li><a href="/report">Report a Sighting</a></li>
+			</div>
+		</ul>
+	</div>
+
+	<div class="container">
+		<h1>Report a Sighting of the Lick</h1>
+		<form action="/report" method="POST">
+			<input name="url" type="text" placeholder="YouTube Video URL" autocomplete="off"><br>
+			<input name="lick_start" placeholder="Time of Lick Occurrence" autocomplete="off"><br>
+			<p>Notes (Optional):</p><textarea name="notes"></textarea><br>
+			<input name="reporter_name" type="text" placeholder="Your Name (Optional)" autocomplete="off"><br>
+			<button type="submit">Report Lick</button>
+		</form>
+	</div>
 </body>
 </html>
