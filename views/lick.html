@@ -1,80 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>The Lick</title>
+	<title>{{#report.title_exists}}{{report.video_title}} | {{/report.title_exists}}The Lick</title>
+	<link rel="stylesheet" type="text/css" href="/navbar.css">
 	<script src="https://www.youtube.com/iframe_api"></script>
 	<script>
-		var player; 
-		function onYouTubeIframeAPIReady() { 
-			player = new YT.Player('lick', { 
-				playerVars: { 
-					'videoId': '{{video_id}}', 
-					'color': 'white', 
-					'controls': 1, 
-					'loop': 1, 
-					'showinfo': 0, 
-					'autoplay': 0, 
-					'rel': 0
-				}, 
-				events: { 
-					//'onStateChange': next 
-				} 
-			}); 
-		}
-
-		function next(event) { 
-			if (event.data == YT.PlayerState.CUED) { 
-				player.playVideo(); 
-			} 
-			if (event.data == YT.PlayerState.ENDED) { 
-				player.nextVideo(); 
-			} 
-		}
-	</script>
-
-<!-- 	<script src="https://www.youtube.com/iframe_api"></script>
-	<script>
 		var player;
-	      function onYouTubeIframeAPIReady() {
-	        player = new YT.Player('player', {
-	          height: '390',
-	          width: '640',
-	          videoId: '{{video_id}}',
-	          events: {
-	            'onReady': onPlayerReady,
-	            //'onStateChange': onPlayerStateChange
-	          }
-	        });
-	      }
+		function onYouTubeIframeAPIReady() {
+			player = new YT.Player('lick', {
+				height: '390',
+				width: '640',
+				videoId: '{{report.video_id}}',
+				events: {
+					'onReady': onPlayerReady,
+				}
+			});
+		}
 
-	      // The API will call this function when the video player is ready.
-	      function onPlayerReady(event) {
+		// The API will call this function when the video player is ready.
+		function onPlayerReady(event) {
 			event.target.playVideo();
-	      }
-
-	      // 	The API calls this function when the player's state changes.
-	      //    The function indicates that when playing a video (state=1),
-	      //    the player should play for six seconds and then stop.
-	      var done = false;
-	      function onPlayerStateChange(event) {
-	        if (event.data == YT.PlayerState.PLAYING && !done) {
-	          setTimeout(stopVideo, 6000);
-	          done = true;
-	        }
-	      }
-	      function stopVideo() {
-	        player.stopVideo();
-	      }
-    </script> -->
+		}
+    </script>
 </head>
 <body>
-	{{#report}} 
-	 	{{#title_exists}}<h3><a href="{{url}}">{{video_title}}</a></h3>{{/title_exists}}
-		<!-- <iframe width="560" height="315" src="https://youtube.com/embed/{{video_id}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <br> -->
-		<div id="lick"></div>
-		<p>The lick occurs at {{lick_start}}</p>
-		<p>{{notes}}</p>
-		<p>Reported on {{date_reported}}{{#reporter_exists}} by {{reporter_name}}{{/reporter_exists}}</p>
-	{{/report}}
+	<div class="navbar">
+		<ul>
+			<li><a href="/">The Lick</a></li>
+			<div style="float:right">
+				<li><a href="/report">Report a Sighting</a></li>
+			</div>
+		</ul>
+	</div>
+	<div class="container">
+		{{#report}} 
+		 	{{#title_exists}}<h3><a href="{{url}}">{{video_title}}</a></h3>{{/title_exists}}
+			<!-- <iframe width="560" height="315" src="https://youtube.com/embed/{{video_id}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <br> -->
+			<div id="lick"></div>
+			<p>The lick occurs at <a href="#" onclick="player.seekTo({{lick_start}});">{{lick_start_string}}</a></p>
+			<p>{{notes}}</p>
+			<p>Reported on {{date_reported}}{{#reporter_exists}} by {{reporter_name}}{{/reporter_exists}}</p>
+		{{/report}}
+	</div>
 </body>
 </html>

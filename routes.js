@@ -28,7 +28,7 @@ module.exports = {
 					db.getReportingsLimited(sys.reportsOnHomeTable, function(err, licks) {
 						if (!err) {
 							render.recentLicks = licks;
-							//console.log(licks)
+
 							for (var row = 0; row < licks.length; row++){
 								// parse date reported into human readable format
 								var d = moment(licks[row].date_reported);
@@ -66,7 +66,7 @@ module.exports = {
 					if (d && d.isValid()) lick.date_reported = d.format('MMMM Do, YYYY [at] h:mm A');
 
 					// convert lick start from seconds to time string
-					lick.lick_start = yt.convertToTimeString(lick.lick_start);
+					lick.lick_start_string = yt.convertToTimeString(lick.lick_start);
 
 					// cache lick info in render object
 					render.report = lick;

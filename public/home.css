@@ -1,0 +1,35 @@
+.header {
+	text-align:left;
+	width:100%;
+	position:fixed;
+	top:0;
+	left: 0;
+	padding-top: 20px;
+	padding-bottom: 15px;
+	padding-left:10px;
+	padding-right:10px;
+	z-index:3;
+	background: rgba(100,100,100,0.9);
+	color: #f1f1f1;
+	height: 55px;
+}
+
+video {
+	width: 50%    !important;
+	height: auto   !important;
+}
+
+#ytp-popup{
+	height 50%;
+}
+
+#licks {
+	border:0;
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	width:70%;
+	height:50%;
+}

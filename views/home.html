@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>The Lick</title>
+<<<<<<< HEAD
 	<style>
 		.header {
 			text-align:left;
@@ -49,6 +50,8 @@
 		}
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/home.css">
+	<link rel="stylesheet" type="text/css" href="/navbar.css">
 	<script src="https://www.youtube.com/iframe_api"></script>
 	<script>
 		var player; 
@@ -91,20 +94,26 @@
 	</script>
 </head>
 <body>
-	<div class="header" id='header'>
-		<h2 style="display:inline">The Lick</h2><a href="/report"><div id="button" style="float:right">Report a Sighting</div></a>
+	<div class="navbar">
+		<ul>
+			<li><a href="/">The Lick</a></li>
+			<div style="float:right">
+				<li><a href="/report">Report a Sighting</a></li>
+			</div>
+		</ul>
 	</div>
+
 	<!-- <div id="licks"></div> -->
-	<div id="lickTable" class="lickTable">
+
+	<div id="lickTable" class="lickTable"></div>
+
+	<div class="container">
 		<h2>Recent Sightings</h2>
 		<table>
 			{{#recentLicks}}
 			<tr>
 				<td><a href="/lick/{{uid}}"><img src="https://img.youtube.com/vi/{{video_id}}/hqdefault.jpg" height="90" width="120"><td></a></td>
-<!-- 				https://img.youtube.com/vi/<insert-youtube-video-id-here>/hqdefault.jpg
- -->
 				<td><a href="/lick/{{uid}}">{{video_title}}</a></td>
-				<!-- <td>{{notes}}</td> -->
 				<td>Reported {{date_reported}}{{#reporter_exists}} by {{reporter_name}}{{/reporter_exists}}</td>
 			</tr>
 			{{/recentLicks}}
