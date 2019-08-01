@@ -29,11 +29,34 @@ module.exports = {
 		});
 	},
 
+	getLicked: function(callback){
+		con.query('SELECT video_id from reportings;', function(err, licks){
+			if (!err){
+				console.log(licks)
+				callback(licks);
+			} else {
+				console.log(err);
+			}
+		});
+	},
+
+	getReporting: function(uid, callback){
+		con.query('SELECT * from reportings where uid = ?;',[uid], function(err, lick){
+			if (!err){
+				console.log(lick)
+				callback(lick);
+			} else {
+				console.log(err);
+			}
+		});
+	},
+
 	// removes a report from database
 	deleteReporting: function(uid, cb) {
 		// make delete query
 		con.query('DELETE FROM reportings WHERE uid = ?;', [uid], function(err) {
 			cb(err);
+		
 		});
 	}
 }

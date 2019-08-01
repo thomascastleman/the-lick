@@ -2,6 +2,7 @@
 /*
 	routes.js: System routes
 */
+const database = require('./database.js');
 
 const db = require('./database.js');
 const yt = require('./youtube.js');
@@ -12,12 +13,21 @@ module.exports = {
 
 		// home page
 		app.get('/', function(req, res) {
-			res.render('home.html');
+			//console.log("//")
+			database.getLicked(function(video_ids){
+				res.render('home.html',{video_ids:video_ids});
+			});
 		});
 
 		// individual lick reporting page
 		app.get('/lick/:id', function(req, res) {
-			res.render('lick.html');
+			var uid = req.params.id;
+			//console.log(uid)
+			database.getReporting(uid, function(lick){
+				console.log(lick)
+				res.render('lick.html', {report:lick});
+			});
+			
 		});
 
 		// get page for reporting the lick
