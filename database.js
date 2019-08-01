@@ -34,19 +34,19 @@ module.exports = {
 			if (!err){
 				callback(licks);
 			} else {
-				console.log(err);
+				cb(err);
 			}
 		});
 	},
 
-	
 
-	getReporting: function(uid, callback){
-		con.query('SELECT * from reportings where uid = ?;',[uid], function(err, lick){
-			if (!err){
-				callback(lick);
+	// get the reporting information by UID
+	getReporting: function(uid, cb){
+		con.query('SELECT * from reportings where uid = ?;',[uid], function(err, rows){
+			if (!err && rows !== undefined && rows.length > 0) {
+				cb(err, rows[0]);
 			} else {
-				console.log(err);
+				cb(err || "Failed to retrieve reporting information.");
 			}
 		});
 	},
@@ -56,19 +56,6 @@ module.exports = {
 		// make delete query
 		con.query('DELETE FROM reportings WHERE uid = ?;', [uid], function(err) {
 			cb(err);
-		
 		});
 	}
 }
-
-
-// module.exports.addReporting({
-// 	reporter_name: "Thomas Castleman",
-// 	url: "https://www.youtube.com/watch?v=30FTr6G53VU",
-// 	video_id: "30FTr6G53VU",
-// 	video_title: "Giant Steps",
-// 	lick_start: "01:29",
-// 	notes: "The lick happens."
-// }, function(err, uid) {
-// 	console.log(err, uid);
-// })
