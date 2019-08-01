@@ -4,22 +4,22 @@
 */
 
 const request = require('request');
-const settings = require('./settings.js')
+const sys = require('./settings.js')
 
 module.exports = {
 
 	/*	String -> String
 		Remove any time shift from end of YouTube URL */
 	cleanURL: function(url) {
-		var cleanURL = url.split('t=')[0];
-		return cleanURL
+		// match t parameter anywhere in URL and replace with empty string
+		return url.replace(/&t=\d+/g, "");
 	},
 
 	/*	String -> JSON
 		Extract all video metadata, given ID. */
 	getVideoMeta: function(videoID, cb) {
 		// format URL to retrieve video meta
-		var url = settings.youtube_url_info_1 + videoID + settings.youtube_url_info_2
+		var url = sys.YOUTUBE_META_URL.prefix + videoID + sys.YOUTUBE_META_URL.suffix
 		
 		// make request to video metadata endpoint
 		request(url, { json: true }, (err, res, body) => {
@@ -60,3 +60,10 @@ module.exports = {
 	}
 
 }
+
+
+var v1 = "https://www.youtube.com/watch?v=30FTr6G53VU&t=261";
+var v2 = "https://www.youtube.com/watch?v=30FTr6G53VU&t=261&feature=youtu.be&t=261";
+
+
+console.log(module.exports.cleanURL(v1));
