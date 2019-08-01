@@ -119,23 +119,3 @@ module.exports = {
 	}
 
 }
-
-
-// var v0 = "not a urL";
-// var v1 = "https://www.youtube.com/watch?v=30FTr6G53VU&t=261";
-// var v2 = "https://www.youtube.com/watch?v=30FTr6G53VU&t=261&feature=youtu.be&t=261";
-
-
-// console.log(module.exports.getVideoID(v0));
-
-
-// var v0 =  "06:12:11";
-// var v1 = "2:23:01";
-// var v2 = "55:10";
-// var v3 = "7:21";
-// var v4 = "not a start time";
-// var v5 = "";
-
-// console.log(module.exports.parseStartTimeToSec(v3));
-
-// console.log(module.exports.convertToTimeString(''));
