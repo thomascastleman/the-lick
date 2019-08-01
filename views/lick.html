@@ -2,6 +2,36 @@
 <html>
 <head>
 	<title>The Lick</title>
+	<script src="https://www.youtube.com/iframe_api"></script>
+	<script>
+		var player; 
+		function onYouTubeIframeAPIReady() { 
+			player = new YT.Player('lick', { 
+				playerVars: { 
+					'videoId': '{{video_id}}', 
+					'color': 'white', 
+					'controls': 1, 
+					'loop': 1, 
+					'showinfo': 0, 
+					'autoplay': 0, 
+					'rel': 0
+				}, 
+				events: { 
+					//'onStateChange': next 
+				} 
+			}); 
+		}
+
+		function next(event) { 
+			if (event.data == YT.PlayerState.CUED) { 
+				player.playVideo(); 
+			} 
+			if (event.data == YT.PlayerState.ENDED) { 
+				player.nextVideo(); 
+			} 
+		}
+	</script>
+
 <!-- 	<script src="https://www.youtube.com/iframe_api"></script>
 	<script>
 		var player;
@@ -40,8 +70,8 @@
 <body>
 	{{#report}} 
 	 	{{#title_exists}}<h3><a href="{{url}}">{{video_title}}</a></h3>{{/title_exists}}
-		<iframe width="560" height="315" src="https://youtube.com/embed/{{video_id}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <br>
-		<div id="player"></div>
+		<!-- <iframe width="560" height="315" src="https://youtube.com/embed/{{video_id}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <br> -->
+		<div id="lick"></div>
 		<p>The lick occurs at {{lick_start}}</p>
 		<p>{{notes}}</p>
 		<p>Reported on {{date_reported}}{{#reporter_exists}} by {{reporter_name}}{{/reporter_exists}}</p>
