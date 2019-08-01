@@ -35,19 +35,6 @@ module.exports = {
 		});
 	},
 
-	/* String -> String
-		Extract video title, given ID */
-	getVideoTitle: function(videoID, cb) {
-		// get all metadata, extract title
-		module.exports.getVideoMeta(videoID, function(err, meta) {
-			if (!err) {
-				cb(err, meta.title);
-			} else {
-				cb(err);
-			}
-		});
-	},
-
 	/*	String -> String
 		Extract the video ID from the URL. */
 	getVideoID: function(url) {

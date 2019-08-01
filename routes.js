@@ -93,10 +93,10 @@ module.exports = {
 			};
 
 			// extract video title
-			yt.getVideoTitle(videoData.video_id, function(err, title) {
+			yt.getVideoMeta(videoData.video_id, function(err, meta) {
 				if (!err) {
 					// add title to video data
-					videoData.video_title = title;
+					videoData.video_title = meta.title;
 				}
 
 				// add new record to reportings table
