@@ -48,6 +48,7 @@
 			height:50%;
 		}
 	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://www.youtube.com/iframe_api"></script>
 	<script>
 		var player; 
@@ -78,13 +79,23 @@
 			} 
 		}
 	</script>
+	<script>
+		jQuery(function($) {
+   			$('#lickTable').on('scroll', function() {
+   				alert('scrollin');
+        		if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+            		alert('end reached');
+        		}
+    		})
+		});
+	</script>
 </head>
 <body>
 	<div class="header" id='header'>
 		<h2 style="display:inline">The Lick</h2><a href="/report"><div id="button" style="float:right">Report a Sighting</div></a>
 	</div>
 	<!-- <div id="licks"></div> -->
-	<div>
+	<div id="lickTable" class="lickTable">
 		<h2>Recent Sightings</h2>
 		<table>
 			{{#recentLicks}}

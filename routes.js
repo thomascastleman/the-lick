@@ -14,6 +14,9 @@ module.exports = {
 
 		// home page
 		app.get('/', function(req, res) {
+			db.getMoreReports(1, function(){
+
+			});
 			var render = {};
 
 			// get all video IDs
@@ -25,7 +28,7 @@ module.exports = {
 					db.getReportingsLimited(sys.reportsOnHomeTable, function(err, licks) {
 						if (!err) {
 							render.recentLicks = licks;
-							console.log(licks)
+							//console.log(licks)
 							for (var row = 0; row < licks.length; row++){
 								// parse date reported into human readable format
 								var d = moment(licks[row].date_reported);
@@ -80,6 +83,19 @@ module.exports = {
 		app.get('/report', function(req, res) {
 			res.render('report.html');
 		});
+
+		app.get('/getMoreLicks/:lastID', function(req, res) {
+			var lastID = req.params.lastID;
+			db.getMoreReports(lastID, function(err, licks){
+				if (!err && licks !== undefined){
+					console.log(lastID)
+					console.log(licks)
+					res.send(licks)
+
+				}
+			});
+		});
+
 
 		// post a new report of the lick
 		app.post('/report', function(req, res) {

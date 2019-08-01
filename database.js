@@ -30,6 +30,21 @@ module.exports = {
 		});
 	},
 
+	getMoreReports: function(last_id, cb){
+		var reloadRate = settings.reloadRate;
+		last_id = parseInt(last_id);
+		con.query('SELECT * from reportings LIMIT ?, ? ;',[last_id, last_id+reloadRate], function(err, licks){
+			if (!err && licks !== undefined){
+				console.log(licks);
+				cb(err, licks);
+			} else {
+				cb(err || "Failed to retrieve more licks.");
+			}
+
+		});
+
+	},
+
 	// get a random subset of lick reportings
 	getRandomReportings: function(limit, cb){
 		con.query('SELECT * from reportings ORDER BY RAND() LIMIT ?;',[limit], function(err, licks){
