@@ -88,11 +88,11 @@ module.exports = {
 			var lastID = req.params.lastID;
 			db.getMoreReports(lastID, function(err, licks){
 				if (!err && licks !== undefined){
-					console.log(lastID)
-					console.log(licks)
-					res.send(licks)
 
+					res.send(licks)
 				}
+
+				
 			});
 		});
 

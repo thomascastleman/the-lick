@@ -6,6 +6,7 @@
 var creds = require('./credentials.js');
 var mysql = require('mysql');
 var settings = require('./settings.js')
+var moment = require('moment');
 
 var con = mysql.createConnection({
 	host: 'localhost',
@@ -35,6 +36,13 @@ module.exports = {
 		last_id = parseInt(last_id);
 		con.query('SELECT * from reportings LIMIT ?, ? ;',[last_id, last_id+reloadRate], function(err, licks){
 			if (!err && licks !== undefined){
+				for (var row = 0; row < licks.length; row++){
+								// parse date reported into human readable format
+								var d = moment(licks[row].date_reported);
+								if (d && d.isValid()) licks[row].date_reported = d.format('MMMM Do, YYYY [at] h:mm A');
+
+								licks[row].reporter_exists = licks[row].reporter_name !== null;
+							}
 				console.log(licks);
 				cb(err, licks);
 			} else {

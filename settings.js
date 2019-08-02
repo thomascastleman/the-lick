@@ -14,7 +14,7 @@ module.exports = {
 	},
 
 	// number of recent reports to display on homepage
-	reportsOnHomeTable: 100,
+	reportsOnHomeTable: 10,
 	reportsOnHomeVideos:100,
 	reloadRate: 10
 
