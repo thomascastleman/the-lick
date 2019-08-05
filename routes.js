@@ -88,8 +88,7 @@ module.exports = {
 			var lastID = req.params.lastID;
 			db.getMoreReports(lastID, function(err, licks){
 				if (!err && licks !== undefined){
-
-					res.send(licks)
+					res.send({ data: licks, err: err })
 				}
 
 				

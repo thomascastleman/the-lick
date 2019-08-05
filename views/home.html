@@ -38,6 +38,7 @@
 	
 </head>
 <body>
+	<input type="hidden" id="refresh" value="no">
 	<div class="navbar">
 		<ul>
 			<li><a href="/">The Lick</a></li>
@@ -72,34 +73,42 @@
   $(window).scroll(function() {
    if($(window).scrollTop() + $(window).height() == $(document).height()) {
    		if (!end){
-   		$.get( "getMoreLicks/"+last_id, function( data ) {
-   			if (data !== undefined){
-   				for (var rows = 0; rows < data.length; rows++){
-   					var html = '';
-   					//$( ".lickTable" ).append("<tr>");
-   					var uid = "<td>Lick #" + data[rows].uid + "</td>";
-   					var thumbnail = "<td><a href='/lick/"+data[rows].uid+"'><img src='https://img.youtube.com/vi/"+data[rows].video_id+"/hqdefault.jpg' height='90' width='120'><td></a></td>";
-   					var videoTitle = "<td><a href='/lick/"+data[rows].uid+"'>"+data[rows].video_title+"</a></td>"
-   					var date = "<td> Reported " + data[rows].date_reported + ""
-   					var reporterName = '';
-   					if (data[rows].reporter_name){
-   						reporterName = "by " + data[rows].reporter_name + "";
-   					}
-   					$( ".lickTable" ).append('<tr>' + uid + thumbnail + videoTitle + date +  reporterName + '</td></tr>'); 
+   		$.get( "getMoreLicks/"+last_id, function(response) {
+   			var data = response.data;
+   			var err = response.err; 
+   			if (!err){
+   				if (data !== undefined){
+   					for (var rows = 0; rows < data.length; rows++){
+   						var html = '';
+   						//$( ".lickTable" ).append("<tr>");
+   						var uid = "<td>Lick #" + data[rows].uid + "</td>";
+   						var thumbnail = "<td><a href='/lick/"+data[rows].uid+"'><img src='https://img.youtube.com/vi/"+data[rows].video_id+"/hqdefault.jpg' height='90' width='120'><td></a></td>";
+   						var videoTitle = "<td><a href='/lick/"+data[rows].uid+"'>"+data[rows].video_title+"</a></td>"
+   						var date = "<td> Reported " + data[rows].date_reported + ""
+   						var reporterName = '';
+   						if (data[rows].reporter_name){
+   							reporterName = "by " + data[rows].reporter_name + "";
+   						}
+   						$( ".lickTable" ).append('<tr>' + uid + thumbnail + videoTitle + date +  reporterName + '</td></tr>'); 
    					
-       				// $( ".lickTable" ).append("<td>"+ data[0].video_title + "</td>" );
-       				//$( ".lickTable" ).append("<td><a href='/lick/"+data[0].uid+"'>"+data[0].video_title+"</a></td></tr>");
-       				//$( ".lickTable" ).append( "</tr>");
-       				//$( ".lickTable" ).append("</tr>");
+       					// $( ".lickTable" ).append("<td>"+ data[0].video_title + "</td>" );
+       					//$( ".lickTable" ).append("<td><a href='/lick/"+data[0].uid+"'>"+data[0].video_title+"</a></td></tr>");
+       					//$( ".lickTable" ).append( "</tr>");
+       					//$( ".lickTable" ).append("</tr>");
 
-  					console.log(data);
+  						console.log(data);
   					
 
-   				}
-   				last_id +=data.length;
+   					}
    				
+   					last_id +=data.length;
+   				
+  					} else {
+  					end = true;
+  				}
+
   			} else {
-  				end = true;
+  				$( ".lickTable" ).append("<h1>ERRRRRRROOORRRR</h1>")
   			}
 
 		});

@@ -21,7 +21,7 @@ function getRandomTimeStamp(duration) {
 
 // subtract random amount of minutes from current time to get random datetime
 function getRandomDate() {
-	return today.subtract(Math.floor(Math.random() * 525600), 'minutes').format();
+	return today.subtract(Math.floor(Math.random() * 525600), 'minutes').format('YYYY-MM-DD hh:mm:ss');
 }
 
 // generate random reporter name
