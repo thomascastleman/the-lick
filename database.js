@@ -37,12 +37,12 @@ module.exports = {
 		con.query('SELECT * from reportings LIMIT ?, ? ;',[last_id, last_id+reloadRate], function(err, licks){
 			if (!err && licks !== undefined){
 				for (var row = 0; row < licks.length; row++){
-								// parse date reported into human readable format
-								var d = moment(licks[row].date_reported);
-								if (d && d.isValid()) licks[row].date_reported = d.format('MMMM Do, YYYY [at] h:mm A');
+					// parse date reported into human readable format
+					var d = moment(licks[row].date_reported);
+					if (d && d.isValid()) licks[row].date_reported = d.format('MMMM Do, YYYY [at] h:mm A');
 
-								licks[row].reporter_exists = licks[row].reporter_name !== null;
-							}
+					licks[row].reporter_exists = licks[row].reporter_name !== null;
+				}
 				console.log(licks);
 				cb(err, licks);
 			} else {

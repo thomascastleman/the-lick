@@ -16,17 +16,3 @@ CREATE TABLE reportings (
 	notes TEXT,						-- extra notes regarding this instance of the lick
 	PRIMARY KEY (uid)
 );
-
-INSERT INTO reportings (date_reported, reporter_name, url, video_id, video_title, lick_start, notes) 
-VALUES (NOW(), 'Johnny Lindbergh', 'https://www.youtube.com/watch?v=30FTr6G53VU','30FTr6G53VU','Giant Steps', 237, "njashlkjhalksdjfh");
-
-INSERT INTO reportings (date_reported, reporter_name, url, video_id, video_title, lick_start, notes) 
-VALUES (NOW(), 'Thomas Regularhouseman', 'https://www.youtube.com/watch?v=wLthw2YWb4s','wLthw2YWb4s','Ya Like Jazz',69,"aksjfh.kajshlfkjhl");
-
-INSERT INTO reportings (date_reported, reporter_name, url, video_id, video_title, lick_start, notes) 
-VALUES (NOW(), 'Coco Castleman', 'https://www.youtube.com/watch?v=8YK-RW5SUOg','8YK-RW5SUOg',"Coco's licks",69, "lkajhs;kldjhflaksdjhflkjahsldfkjh;lkashdfl;ijhjkh");
-
-INSERT INTO reportings (date_reported, url, video_id, video_title, lick_start, notes) 
-VALUES (NOW(),  'https://www.youtube.com/watch?v=8YK-RW5SUOg','8YK-RW5SUOg',"Coco's licks",69, "lkajhs;kldjhflaksdjhflkjahsldfkjh;lkashdfl;ijhjkh");
-
-
