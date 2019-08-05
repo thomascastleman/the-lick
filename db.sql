@@ -16,3 +16,11 @@ CREATE TABLE reportings (
 	notes TEXT,						-- extra notes regarding this instance of the lick
 	PRIMARY KEY (uid)
 );
+
+-- users who moderate lick content
+CREATE TABLE moderators (
+	uid INT NOT NULL AUTO_INCREMENT,
+	name VARCHAR(64),
+	email VARCHAR(64),
+	PRIMARY KEY (uid)
+);
