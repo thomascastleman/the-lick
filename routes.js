@@ -14,9 +14,6 @@ module.exports = {
 
 		// home page
 		app.get('/', function(req, res) {
-			db.getMoreReports(1, function(){
-
-			});
 			var render = {};
 
 			// get all video IDs
