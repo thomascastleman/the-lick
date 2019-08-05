@@ -11,8 +11,8 @@ const P_REPORTER = 0.4;					// probability a report includes a name
 
 var today = moment();
 
-
-var youtubeURLs = [];
+// some random jazz YouTube videos
+var youtubeURLs = ['https://www.youtube.com/watch?v=30FTr6G53VU', 'https://www.youtube.com/watch?v=__OSyznVDOY&list=PLp7pAH9am84PBSXodlLRtdWaUrOjZx58M', 'https://www.youtube.com/watch?v=dH3GSrCmzC8&list=PLp7pAH9am84PBSXodlLRtdWaUrOjZx58M&index=2', 'https://www.youtube.com/watch?v=Cv9NSR-2DwM&list=PLp7pAH9am84PBSXodlLRtdWaUrOjZx58M&index=3', 'https://www.youtube.com/watch?v=8B1oIXGX0Io&list=PLp7pAH9am84PBSXodlLRtdWaUrOjZx58M&index=4', 'https://www.youtube.com/watch?v=UTORd2Y_X6U&list=PLp7pAH9am84PBSXodlLRtdWaUrOjZx58M&index=5', 'https://www.youtube.com/watch?v=CWeXOm49kE0&list=PLp7pAH9am84PBSXodlLRtdWaUrOjZx58M&index=7', 'https://www.youtube.com/watch?v=dqn3PF_DcSg&list=PLp7pAH9am84PBSXodlLRtdWaUrOjZx58M&index=8', 'https://www.youtube.com/watch?v=s4rXEKtC8iY&list=PLp7pAH9am84PBSXodlLRtdWaUrOjZx58M&index=9'];
 
 // get a random timestamp assumed to be within the duration of every video in the test suite (lol)
 function getRandomTimeStamp(duration) {
@@ -39,39 +39,43 @@ function getRandomNotes() {
 	return Math.random() < P_NOTES ? casual.sentence : null;
 }
 
+// get a random fake video title
+function getRandomVideoTitle() {
+	return casual.title;
+}
+
 // add random reportings to database
 function populateRandomReportings(cb) {
 	var records = [];
 
 	// for each report to generate
 	for (var i = 0; i < NUM_REPORTS; i++) {
-		records.push([
-			getRandomDate(),		// date_reported
-			getRandomName(),		// reporter_name
-			getRandomVideoURL(),	// url
-			getRandomTimeStamp(),	// lick_start
-			getRandomNotes(),		// notes
- 		]);
+		// get random video URL
+		var url = getRandomVideoURL();
+		var video_id = yt.getVideoID(url);
+
+		// ensure video ID successfully parsed
+		if (!video_id) {
+			throw new Error("Failed to parse video ID for \'" + url + "\'");
+		} else {
+			// add new report record to list
+			records.push([
+				getRandomDate(),		// date_reported
+				getRandomName(),		// reporter_name
+				url,					// url
+				video_id,				// video_id
+				getRandomVideoTitle(),	// video_title (fudge the video title because bleh)
+				getRandomTimeStamp(),	// lick_start
+				getRandomNotes(),		// notes
+	 		]);
+		}
 	}
 
 	// insert generated data
-	con.query('INSERT INTO reportings (date_reported, reporter_name, url, lick_start, notes) VALUES ?;', [records], function(err) {
+	con.query('INSERT INTO reportings (date_reported, reporter_name, url, video_id, video_title, lick_start, notes) VALUES ?;', [records], function(err) {
 		cb(err);
 	});
-
-
-	/*
-		uid INT NOT NULL AUTO_INCREMENT,
-		date_reported DATETIME,			-- time of reporting
-		reporter_name VARCHAR(64),		-- optional, name of the reporter
-		url VARCHAR(512),				-- video li(n)ck (without time shift)
-		video_id VARCHAR(32),			-- YouTube's ID for this video
-		video_title VARCHAR(64),		-- title of reported video
-		lick_start INT,					-- in seconds, when in the video the lick occurs
-		notes TEXT,						-- extra notes regarding this instance of the lick
-	*/
 }
-
 
 populateRandomReportings(function(err) {
 	if (!err) {

@@ -37,7 +37,7 @@ module.exports = {
 
 	/*	String -> String
 		Extract the video ID from the URL. */
-	getVideoID: function(url, cb) {
+	getVideoID: function(url) {
 		// regular expression used to extract ID from URL (depends on form of URL)
 		var videoIDExpr;
 		
@@ -56,8 +56,8 @@ module.exports = {
 			url += '?';
 			videoIDExpr = /https:\/\/youtu\.be\/(.+?)(?=\?)/g;			
 		} else {
-			// if no URL format recognized, callback on error
-			return cb("The URL provided was in an unrecognizable format.");
+			// if no URL format recognized, return null
+			return null;
 		}
 
 		// use regex to get ID in ?v parameter
@@ -65,9 +65,9 @@ module.exports = {
 
 		// if match exists, return just the ID
 		if (match && match.length > 1) {
-			cb(null, match[1]);
+			return match[1];
 		} else {
-			cb("Failed to extract video ID from provided URL.");
+			return null;
 		}
 	},
 

@@ -103,47 +103,48 @@ module.exports = {
 			if (req.body.url) {
 
 				// attempt to extract YouTube video ID from the given URL
-				yt.getVideoID(req.body.url, function(err, video_id) {
-					if (!err) {
-						// check for a t offset parameter in the URL itself 
-						var parsedT = yt.parsePlaybackOffset(req.body.url);
+				var video_id = yt.getVideoID(req.body.url);
 
-						// consolidated / parsed video data
-						videoData = {
-							reporter_name: req.body.reporter_name || null,
-							url: req.body.url,
-							video_id: video_id,
-							lick_start: parsedT || yt.parseStartTimeToSec(req.body.lick_start),
-							notes: req.body.notes || null
-						};
+				// if video ID successfully extracted
+				if (video_id) {
+					// check for a t offset parameter in the URL itself 
+					var parsedT = yt.parsePlaybackOffset(req.body.url);
+
+					// consolidated / parsed video data
+					videoData = {
+						reporter_name: req.body.reporter_name || null,
+						url: req.body.url,
+						video_id: video_id,
+						lick_start: parsedT || yt.parseStartTimeToSec(req.body.lick_start),
+						notes: req.body.notes || null
+					};
 
 
-						if (!videoData.lick_start) {
-							res.render('error.html', { raw: "Failed to add reporting as a lick occurrence timestamp was provided neither explicitly nor in the video URL. (Please indicate when the lick occurs)" });
-						} else {
-							// attempt to extract video title
-							yt.getVideoMeta(videoData.video_id, function(err, meta) {
-								if (!err) {
-									// add title to video data
-									videoData.video_title = meta.title;
-								}
-
-								// add new record to reportings table
-								db.addReporting(videoData, function(err, uid) {
-									if (!err) {
-										// redirect to lick page for the newly added lick sighting
-										res.redirect('/lick/' + uid);
-									} else {
-										// register error
-										res.render('error.html', { raw: err });
-									}
-								});
-							});
-						}
+					if (!videoData.lick_start) {
+						res.render('error.html', { raw: "Failed to add reporting as a lick occurrence timestamp was provided neither explicitly nor in the video URL. (Please indicate when the lick occurs)" });
 					} else {
-						res.render('error.html', { raw: err });
+						// attempt to extract video title
+						yt.getVideoMeta(videoData.video_id, function(err, meta) {
+							if (!err) {
+								// add title to video data
+								videoData.video_title = meta.title;
+							}
+
+							// add new record to reportings table
+							db.addReporting(videoData, function(err, uid) {
+								if (!err) {
+									// redirect to lick page for the newly added lick sighting
+									res.redirect('/lick/' + uid);
+								} else {
+									// register error
+									res.render('error.html', { raw: err });
+								}
+							});
+						});
 					}
-				});
+				} else {
+					res.render('error.html', { raw: "Failed to extract YouTube video ID from provided URL." });
+				}
 			} else {
 				res.render('error.html', { raw: "Failed to add report as no URL was provided." });
 			}
