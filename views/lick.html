@@ -3,8 +3,26 @@
 <head>
 	<title>{{#report.title_exists}}{{report.video_title}} | {{/report.title_exists}}The Lick</title>
 	<link rel="stylesheet" type="text/css" href="/navbar.css">
+	<script
+		src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous"></script>
 	<script src="https://www.youtube.com/iframe_api"></script>
 	<script>
+	
+		// request to remove a reporting from the db
+		function deleteLick() {
+			if (confirm("Are you sure you want to permanently remove this lick report?")) {
+				$.post("/deleteReporting", { uid: "{{report.uid}}" }, function(res) {
+					if (!res.err) {
+						window.location.href = "/";
+					} else {
+						alert("Failed to remove report from database: " + res.err);
+					}
+				});
+			}
+		}
+
 		var player;
 		function onYouTubeIframeAPIReady() {
 			player = new YT.Player('lick', {
@@ -41,6 +59,7 @@
 			<p>{{notes}}</p>
 			<p>Reported on {{date_reported}}{{#reporter_exists}} by {{reporter_name}}{{/reporter_exists}}</p>
 		{{/report}}
+		{{#isModerator}}<button onclick="deleteLick();">Delete Report</button>{{/isModerator}}
 	</div>
 </body>
 </html>

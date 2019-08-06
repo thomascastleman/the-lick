@@ -92,5 +92,27 @@ module.exports = {
 		con.query('DELETE FROM reportings WHERE uid = ?;', [uid], function(err) {
 			cb(err);
 		});
+	},
+
+	// add a new moderator to the system
+	addModerator: function(name, email, cb) {
+		// ensure name and email given
+		if (name && email) {
+			// make insert query
+			con.query('INSERT INTO moderators (name, email) VALUES (?, ?);', [name, email], cb);
+		} else {
+			cb("Failed to add moderator as not all fields were supplied.");
+		}
+	},
+
+	// remove a reporting from the db
+	deleteReporting: function(uid, cb) {
+		// ensure UID exists
+		if (uid) {
+			// make delete query
+			con.query('DELETE FROM reportings WHERE uid = ?;', [uid], cb);
+		} else {
+			cb("Failed to remove reporting as no identifier provided.");
+		}
 	}
 }

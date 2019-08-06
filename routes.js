@@ -7,6 +7,7 @@ const moment = require('moment');
 const db = require('./database.js');
 const yt = require('./youtube.js');
 const sys = require('./settings.js');
+const auth = require('./auth.js');
 
 module.exports = {
 
@@ -48,10 +49,12 @@ module.exports = {
 		// individual lick reporting page
 		app.get('/lick/:id', function(req, res) {
 			var uid = req.params.id;
-			var render = {};
+			var render = {
+				isModerator: req.isAuthenticated()	// register if the user is a moderator (allow deletions)
+			};
 
 			// get info for this reporting
-			db.getReporting(uid, function(err, lick){
+			db.getReporting(uid, function(err, lick) {
 				if (!err) {
 					// register that reporter & notes & video title exist
 					lick.reporter_exists = lick.reporter_name != null && lick.reporter_name != '';
@@ -73,7 +76,6 @@ module.exports = {
 					res.render('error.html', { raw: err });
 				}
 			});
-			
 		});
 
 		// get page for reporting the lick
@@ -83,16 +85,13 @@ module.exports = {
 
 		app.get('/getMoreLicks/:lastID', function(req, res) {
 			var lastID = req.params.lastID;
+
 			db.getMoreReports(lastID, function(err, licks){
 				if (!err && licks !== undefined){
-
 					res.send(licks)
 				}
-
-				
 			});
 		});
-
 
 		// post a new report of the lick
 		app.post('/report', function(req, res) {
@@ -145,6 +144,30 @@ module.exports = {
 			} else {
 				res.render('error.html', { raw: "Failed to add report as no URL was provided." });
 			}
+		});
+
+		// moderator page
+		app.get('/moderator', auth.isAuthGET, function(req, res) {
+			res.render('moderator.html');
+		});
+
+		// add a new moderator
+		app.post('/newModerator', auth.isAuthPOST, function(req, res) {
+			db.addModerator(req.body.name, req.body.email, function(err) {
+				if (!err) {
+					res.redirect('/moderator');
+				} else {
+					res.render('error.html', { raw: err });
+				}
+			});
+		});
+
+		// delete a reporting
+		app.post('/deleteReporting', auth.isAuthPOST, function(req, res) {
+			// delete reporting from db, I mean yeah it does the thing
+			db.deleteReporting(req.body.uid, function(err) {
+				res.send({ err: err });
+			});
 		});
 
 	}
