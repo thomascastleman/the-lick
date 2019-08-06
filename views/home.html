@@ -43,6 +43,11 @@
 			<li><a href="/">The Lick</a></li>
 			<div style="float:right">
 				<li><a href="/report">Report a Sighting</a></li>
+				{{^isModerator}}<li><a href="/login">Moderator Login</a></li>{{/isModerator}}
+				{{#isModerator}}
+				<li><a href="/moderator">Moderator Portal</a></li>
+				<li><a href="/logout">Log Out</a></li>
+				{{/isModerator}}
 			</div>
 		</ul>
 	</div>
