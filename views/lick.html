@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>{{#report.title_exists}}{{report.video_title}} | {{/report.title_exists}}The Lick</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="/navbar.css">
 	<script
 		src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -46,10 +47,16 @@
 		<ul>
 			<li><a href="/">The Lick</a></li>
 			<div style="float:right">
-				<li><a href="/report">Report a Sighting</a></li>
+				<li><a href="/report">Report a Sighting <i class="fas fa-search"></i></a></li>
+				{{^isModerator}}<li><a href="/login">Moderator Login <i class="fas fa-sign-in-alt"></i></a></li>{{/isModerator}}
+				{{#isModerator}}
+				<li><a href="/moderator">Moderator Portal <i class="fas fa-tools"></i></a></li>
+				<li><a href="/logout">Log Out <i class="fas fa-sign-out-alt"></i></a></li>
+				{{/isModerator}}
 			</div>
 		</ul>
 	</div>
+	
 	<div class="container">
 		{{#report}} 
 		 	{{#title_exists}}<h3><a href="{{url}}">{{video_title}}</a></h3>{{/title_exists}}

@@ -10,7 +10,7 @@ html, body {
     width: 100%;
     font-family: 'Averia Sans Libre';
     font-size: 14px;
-    background-color: black;
+    background-color: gray;
 }
 
 .navbar ul {
@@ -38,7 +38,7 @@ html, body {
 
 /* push text titles for each link away from their icons */
 .navbar li a i {
-	margin-right: 5px;
+	margin-left: 3px;
 }
 
 /* push regular container content down past sticky navbar */

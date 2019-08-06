@@ -2,15 +2,33 @@
 <html>
 <head>
 	<title>Moderator Portal | The Lick</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="/navbar.css">
 </head>
 <body>
-	<h2>Add a New Moderator</h2>
-	<form action="/newModerator" method="POST">
-		<input name="name" placeholder="Moderator Name" type="text" autocomplete="off"><br>
-		<input name="email" placeholder="Moderator Email" type="text" autocomplete="off"><br>
-		<button type="submit">Add New Moderator</button>
-	</form>
+	<div class="navbar">
+		<ul>
+			<li><a href="/">The Lick</a></li>
+			<div style="float:right">
+				<li><a href="/report">Report a Sighting <i class="fas fa-search"></i></a></li>
+				{{^isModerator}}<li><a href="/login">Moderator Login <i class="fas fa-sign-in-alt"></i></a></li>{{/isModerator}}
+				{{#isModerator}}
+				<li><a href="/moderator">Moderator Portal <i class="fas fa-tools"></i></a></li>
+				<li><a href="/logout">Log Out <i class="fas fa-sign-out-alt"></i></a></li>
+				{{/isModerator}}
+			</div>
+		</ul>
+	</div>
 
-	<p>(If page reloaded, assume updates went through successfully.)</p>
+	<div class="container">
+		<h2>Add a New Moderator</h2>
+		<form action="/newModerator" method="POST">
+			<input name="name" placeholder="Moderator Name" type="text" autocomplete="off"><br>
+			<input name="email" placeholder="Moderator Email" type="text" autocomplete="off"><br>
+			<button type="submit">Add New Moderator</button>
+		</form>
+
+		<p>(If page reloaded, assume updates went through successfully.)</p>
+	</div>
 </body>
 </html>
