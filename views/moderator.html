@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Report a Lick | The Lick</title>
+	<title>Moderator Portal | The Lick</title>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="/navbar.css">
-	<script>
-		
-	</script>
 </head>
 <body>
 	<div class="navbar">
@@ -24,14 +21,14 @@
 	</div>
 
 	<div class="container">
-		<h1>Report a Sighting of the Lick</h1>
-		<form action="/report" method="POST">
-			<input name="url" type="text" placeholder="YouTube Video URL" autocomplete="off"><br>
-			<input name="lick_start" placeholder="Time of Lick Occurrence" autocomplete="off"><br>
-			<p>Notes (Optional):</p><textarea name="notes"></textarea><br>
-			<input name="reporter_name" type="text" placeholder="Your Name (Optional)" autocomplete="off"><br>
-			<button type="submit">Report Lick</button>
+		<h2>Add a New Moderator</h2>
+		<form action="/newModerator" method="POST">
+			<input name="name" placeholder="Moderator Name" type="text" autocomplete="off"><br>
+			<input name="email" placeholder="Moderator Email" type="text" autocomplete="off"><br>
+			<button type="submit">Add New Moderator</button>
 		</form>
+
+		<p>(If page reloaded, assume updates went through successfully.)</p>
 	</div>
 </body>
 </html>

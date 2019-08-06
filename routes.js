@@ -7,6 +7,7 @@ const moment = require('moment');
 const db = require('./database.js');
 const yt = require('./youtube.js');
 const sys = require('./settings.js');
+const auth = require('./auth.js');
 
 module.exports = {
 
@@ -14,10 +15,7 @@ module.exports = {
 
 		// home page
 		app.get('/', function(req, res) {
-			db.getMoreReports(1, function(){
-
-			});
-			var render = {};
+			var render = rend(req);
 
 			// get all video IDs
 			db.getRandomReportings(sys.reportsOnHomeVideos,function(err, video_ids){
@@ -51,10 +49,10 @@ module.exports = {
 		// individual lick reporting page
 		app.get('/lick/:id', function(req, res) {
 			var uid = req.params.id;
-			var render = {};
+			var render = rend(req);
 
 			// get info for this reporting
-			db.getReporting(uid, function(err, lick){
+			db.getReporting(uid, function(err, lick) {
 				if (!err) {
 					// register that reporter & notes & video title exist
 					lick.reporter_exists = lick.reporter_name != null && lick.reporter_name != '';
@@ -76,28 +74,26 @@ module.exports = {
 					res.render('error.html', { raw: err });
 				}
 			});
-			
-		});
-
-		// get page for reporting the lick
-		app.get('/report', function(req, res) {
-			res.render('report.html');
 		});
 
 		app.get('/getMoreLicks/:lastID', function(req, res) {
 			var lastID = req.params.lastID;
-			db.getMoreReports(lastID, function(err, licks){
-				if (!err && licks !== undefined){
-					res.send({ data: licks, err: err })
-				}
 
-				
+			// retrieve more reports using the last ID
+			db.getMoreReports(lastID, function(err, licks){
+				res.send({ data: licks, err: err })
 			});
 		});
 
+		// get page for reporting the lick
+		app.get('/report', function(req, res) {
+			res.render('report.html', rend(req));
+		});
 
 		// post a new report of the lick
 		app.post('/report', function(req, res) {
+			var render = rend(req);
+
 			// ensure non-empty URL given
 			if (req.body.url) {
 
@@ -120,7 +116,8 @@ module.exports = {
 
 
 					if (!videoData.lick_start) {
-						res.render('error.html', { raw: "Failed to add reporting as a lick occurrence timestamp was provided neither explicitly nor in the video URL. (Please indicate when the lick occurs)" });
+						render.raw = "Failed to add reporting as a lick occurrence timestamp was provided neither explicitly nor in the video URL. (Please indicate when the lick occurs)";
+						res.render('error.html', render);
 					} else {
 						// attempt to extract video title
 						yt.getVideoMeta(videoData.video_id, function(err, meta) {
@@ -135,8 +132,10 @@ module.exports = {
 									// redirect to lick page for the newly added lick sighting
 									res.redirect('/lick/' + uid);
 								} else {
+									render.raw = err;
+
 									// register error
-									res.render('error.html', { raw: err });
+									res.render('error.html', render);
 								}
 							});
 						});
@@ -149,6 +148,41 @@ module.exports = {
 			}
 		});
 
+		// moderator page
+		app.get('/moderator', auth.isAuthGET, function(req, res) {
+			res.render('moderator.html', rend(req));
+		});
+
+		// add a new moderator
+		app.post('/newModerator', auth.isAuthPOST, function(req, res) {
+			var render = rend(req);
+
+			// add new moderator via db
+			db.addModerator(req.body.name, req.body.email, function(err) {
+				if (!err) {
+					res.redirect('/moderator');
+				} else {
+					render.raw = err;
+					res.render('error.html', render);
+				}
+			});
+		});
+
+		// delete a reporting
+		app.post('/deleteReporting', auth.isAuthPOST, function(req, res) {
+			// delete reporting from db, I mean yeah it does the thing
+			db.deleteReporting(req.body.uid, function(err) {
+				res.send({ err: err });
+			});
+		});
+
 	}
 
+}
+
+// default render object for each page
+function rend(req) {
+	return {
+		isModerator: req.isAuthenticated()	// register if the user is a moderator (allow deletions)
+	};
 }
