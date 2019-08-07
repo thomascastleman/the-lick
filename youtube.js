@@ -39,29 +39,33 @@ module.exports = {
 		Extract the video ID from the URL. */
 	getVideoID: function(url) {
 		// regular expression used to extract ID from URL (depends on form of URL)
-		var videoIDExpr;
-		
-		if (/https:\/\/www\.youtube\.com\/watch\?v=.*/g.test(url)) {
-			// add & to end as though another parameter occurs (allows the lookahead to work)
-			url += '&';
-			videoIDExpr = /https:\/\/www\.youtube\.com\/watch\?v=(.+?)(?=&)/g;
+		var expr;
 
-		} else if (/https:\/\/www\.youtube\.com\/v\/.*/g.test(url)) {
-			// add ? to end as though parameters occur (allows lookahead)
-			url += '?';
-			videoIDExpr = /https:\/\/www\.youtube\.com\/v\/(.+?)(?=\?)/g;
+		// supported YouTube URL formats
+		var form1 = /https:\/\/www\.youtube\.com\/watch\?v=(.+?)(?=(&|$))/gm;		// youtube.com/watch?v= <VIDEO ID>
+		var form2 = /https:\/\/www\.youtube\.com\/v\/(.+?)(?=(\?|$))/gm;			// youtube.com/v/ <VIDEO ID>
+		var form3 = /https:\/\/youtu\.be\/(.+?)(?=(\?|$))/gm;						// youtu.be/ <VIDEO ID>
 
-		} else if (/https:\/\/youtu\.be\/.*/g.test(url)) {
-			// add ? to end as though parameters occur (allows lookahead)
-			url += '?';
-			videoIDExpr = /https:\/\/youtu\.be\/(.+?)(?=\?)/g;			
+		// test each format against the URL to determine which expression to use
+		if (form1.test(url)) {
+			// use youtube.com/watch format
+			expr = form1;
+		} else if (form2.test(url)) {
+			// use youtube.com/v format
+			expr = form2;
+		} else if (form3.test(url)) {
+			// use youtu.be format
+			expr = form3;
 		} else {
-			// if no URL format recognized, return null
+			// if no URL format recognized, return null (failure to retrieve video ID)
 			return null;
 		}
 
-		// use regex to get ID in ?v parameter
-		var match = videoIDExpr.exec(url);
+		// reset index of regular expression before using to extract ID
+		expr.lastIndex = 0;
+
+		// use regex to pull video ID from URL
+		var match = expr.exec(url);
 
 		// if match exists, return just the ID
 		if (match && match.length > 1) {
@@ -129,30 +133,3 @@ module.exports = {
 	}
 
 }
-
-
-// var urls = [
-// 	'https://www.youtube.com/watch?v=30FTr6G53VU',
-// 	'https://www.youtube.com/watch?v=-wtIMTCHWuI',
-// 	'https://www.youtube.com/watch?v=I-VY-zs2eiY',
-// 	'https://www.youtube.com/watch?v=30FTr6G53VU&t=261',
-// 	'https://www.youtube.com/watch?v=30FTr6G53VU&t=261&feature=youtu.be&t=261',
-// 	'https://www.youtube.com/v/-wtIMTCHWuI?version=3&autohide=1',
-// 	'https://www.youtube.com/v/I-VY-zs2eiY?version=3&autohide=1',
-// 	'https://www.youtube.com/v/I-VY-zs2eiY?',
-// 	'https://youtu.be/-wtIMTCHWuI',
-// 	'https://youtu.be/30FTr6G53VU?t=4'
-// ];
-
-
-// for (var i = 0; i < urls.length; i++) {
-// 	// var id = module.exports.getVideoID(urls[i]);
-
-// 	// console.log(urls[i]);
-// 	// console.log(id);
-// 	// console.log();
-
-// 	console.log(urls[i]);
-// 	console.log(module.exports.parsePlaybackOffset(urls[i]));
-// 	console.log();
-// }
