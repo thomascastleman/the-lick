@@ -1,0 +1,11 @@
+
+
+#optional-toggle:hover {
+	cursor: pointer;
+}
+
+/* container div for optional fields */
+#optional {
+	overflow: hidden;
+}
+
