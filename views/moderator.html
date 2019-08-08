@@ -23,12 +23,12 @@
 	<div class="container">
 		<h1>Add a New Moderator</h1>
 		<form action="/newModerator" method="POST">
-			<input name="name" placeholder="Moderator Name" type="text" autocomplete="off"><br>
-			<input name="email" placeholder="Moderator Email" type="text" autocomplete="off"><br>
-			<button type="submit">Add New Moderator</button>
+			<i class="icon fas fa-user"></i><input name="name" placeholder="Moderator Name" type="text" autocomplete="off"><br>
+			<i class="icon fas fa-envelope"></i><input name="email" placeholder="Moderator Email" type="text" autocomplete="off"><br>
+			<button id="add-moderator" type="submit">Add New Moderator <i class="fas fa-check-circle"></i></button>
 		</form>
 
-		<p>(If page reloaded, assume updates went through successfully.)</p>
+		<p><i>(If page reloaded, assume updates went through successfully.)</i></p>
 	</div>
 </body>
 </html>

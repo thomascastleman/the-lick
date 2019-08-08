@@ -1,0 +1,37 @@
+
+
+iframe {
+	display: block;
+	margin: auto;
+	width: 80%;
+}
+
+#delete {
+	color: white !important;
+	background-color: #ff3333;
+	padding: 10px;
+	border-radius: 4px;
+	border: none;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	font-size: 14px;
+}
+
+#delete:hover {
+	background-color: #ff6666;
+	cursor: pointer;
+}
+
+.icon {
+	font-size: 17px;
+	margin-left: 5px;
+}
+
+#report-meta {
+	color: #666666;
+	font-size: 14px;
+}
+
+p {
+	font-size: 18px;
+}
