@@ -9,6 +9,7 @@
 h1 {
     font-family: 'Permanent Marker', sans-serif !important;
     font-size: 37px;
+    user-select: none;
 }
 
 html, body {
