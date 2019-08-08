@@ -11,7 +11,6 @@ h1 {
     font-size: 37px;
 }
 
-
 html, body {
     margin: 0;
     padding: 0;
@@ -23,7 +22,7 @@ html, body {
     width: 100%;
     font-family: 'Averia Sans Libre';
     font-size: 14px;
-    background-color: gray;
+    background-color: #4d88ff;
 }
 
 .navbar ul {
@@ -46,7 +45,7 @@ html, body {
 }
 
 .navbar li a:hover {
-    background-color: #38322b;
+    background-color: #6699ff;
 }
 
 /* push text titles for each link away from their icons */
@@ -66,4 +65,8 @@ html, body {
     padding-right: 20px;
     background-color: #e6e6e6;
     box-shadow: 0 0 20px #000;
+}
+
+#home-link {
+    font-size: 17px;
 }

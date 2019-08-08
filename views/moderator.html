@@ -9,7 +9,7 @@
 <body>
 	<div class="navbar">
 		<ul>
-			<li><a href="/">The Lick</a></li>
+			<li id="home-link"><strong><a href="/">thelick.com</a></strong></li>
 			<div style="float:right">
 				<li><a href="/report">Report a Sighting <i class="fas fa-search"></i></a></li>
 				{{^isModerator}}<li><a href="/login">Moderator Login <i class="fas fa-sign-in-alt"></i></a></li>{{/isModerator}}
@@ -21,7 +21,7 @@
 		</ul>
 	</div>
 	<div class="container">
-		<h2>Add a New Moderator</h2>
+		<h1>Add a New Moderator</h1>
 		<form action="/newModerator" method="POST">
 			<input name="name" placeholder="Moderator Name" type="text" autocomplete="off"><br>
 			<input name="email" placeholder="Moderator Email" type="text" autocomplete="off"><br>
