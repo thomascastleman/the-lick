@@ -1,3 +1,10 @@
+body {
+	background-image: url('/hqdefault.jpg');
+  	background-attachment: fixed;
+
+}
+
+
 .header {
 	text-align:left;
 	width:100%;
