@@ -1,5 +1,5 @@
 body {
-	background-image: url('/hqdefault.jpg');
+	background-image: url('/bg_compressed.jpg');
   	background-attachment: fixed;
 
 }
@@ -44,4 +44,5 @@ video {
 /* container for all content */
 .container {
 	width: 65% !important;
+	opacity: 0.7;
 }
