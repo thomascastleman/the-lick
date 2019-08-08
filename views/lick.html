@@ -11,7 +11,7 @@
 		crossorigin="anonymous"></script>
 	<script src="https://www.youtube.com/iframe_api"></script>
 	<script>
-	
+		{{#isModerator}}
 		// request to remove a reporting from the db
 		function deleteLick() {
 			if (confirm("Are you sure you want to permanently remove this lick report?")) {
@@ -24,6 +24,7 @@
 				});
 			}
 		}
+		{{/isModerator}}
 
 		var player;
 		function onYouTubeIframeAPIReady() {
@@ -57,7 +58,6 @@
 			</div>
 		</ul>
 	</div>
-	
 	<div class="container">
 		{{#report}} 
 		 	{{#title_exists}}<h3><a href="{{url}}">{{video_title}}</a></h3>{{/title_exists}}
