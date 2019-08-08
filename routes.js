@@ -79,15 +79,6 @@ module.exports = {
 			});
 		});
 
-		app.get('/getMoreLicks/:lastID', function(req, res) {
-			var lastID = req.params.lastID;
-
-			// retrieve more reports using the last ID
-			db.getMoreReports(lastID, function(err, licks){
-				res.send({ data: licks, err: err })
-			});
-		});
-
 		// get page for reporting the lick
 		app.get('/report', function(req, res) {
 			res.render('report.html', rend(req));
@@ -117,7 +108,7 @@ module.exports = {
 						notes: req.body.notes || null
 					};
 
-
+					// if no lick timestamp was provided, error
 					if (!videoData.lick_start) {
 						render.raw = "Failed to add reporting as a lick occurrence timestamp was provided neither explicitly nor in the video URL. (Please indicate when the lick occurs)";
 						res.render('error.html', render);
@@ -177,6 +168,16 @@ module.exports = {
 			// delete reporting from db, I mean yeah it does the thing
 			db.deleteReporting(req.body.uid, function(err) {
 				res.send({ err: err });
+			});
+		});
+
+		// request more licks to load onto the homepage (on user scroll)
+		app.get('/getMoreLicks/:lastID', function(req, res) {
+			var lastID = req.params.lastID;
+
+			// retrieve more reports using the last ID
+			db.getMoreReports(lastID, function(err, licks){
+				res.send({ data: licks, err: err })
 			});
 		});
 

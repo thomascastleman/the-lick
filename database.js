@@ -1,14 +1,14 @@
 
 /*
-	database.js: Database setup
+	database.js: Database setup & query functions
 */
 
-var creds = require('./credentials.js');
-var mysql = require('mysql');
-var sys = require('./settings.js')
-var moment = require('moment');
+const creds = require('./credentials.js');
+const mysql = require('mysql');
+const sys = require('./settings.js')
+const moment = require('moment');
 
-var con = mysql.createConnection({
+const con = mysql.createConnection({
 	host: 'localhost',
 	user: creds.MySQL_username,
 	password: creds.MySQL_password,
