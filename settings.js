@@ -13,13 +13,16 @@ module.exports = {
 		suffix: "&format=json"
 	},
 
-	// number of recent reports to display on homepage
-	reportsOnHomeTable: 200,
+	// site name that appears in top lefthand corner of navbar
+	SITE_NAME: 'thelick.com',
 
-	// number of reports to use in the homepage video player
-	reportsOnHomeVideos:100,
+	// number of recent reports to display on homepage
+	REPORTS_ON_HOME_TABLE: 200,
+
+	// number of videos to use in the homepage video player
+	VIDEOS_IN_RAND_SUBSET: 100,
 	
 	// number of videos to load onto the homepage on scroll
-	reloadRate: 10
+	SCROLL_RELOAD_RATE: 10
 
 }

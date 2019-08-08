@@ -18,12 +18,12 @@ module.exports = {
 			var render = rend(req);
 
 			// get all video IDs
-			db.getRandomReportings(sys.reportsOnHomeVideos,function(err, video_ids){
+			db.getRandomReportings(sys.VIDEOS_IN_RAND_SUBSET, function(err, video_ids) {
 				if (!err) {
 					render.video_ids = video_ids;
 
 					// get subset of reportings
-					db.getReportingsLimited(sys.reportsOnHomeTable, function(err, licks) {
+					db.getRecentReportings(sys.REPORTS_ON_HOME_TABLE, function(err, licks) {
 						if (!err) {
 							render.recentLicks = licks;
 
@@ -37,11 +37,13 @@ module.exports = {
 
 							res.render('home.html', render);
 						} else {
-							res.render('error.html', { raw: err });
+							render.raw = err;
+							res.render('error.html', render);
 						}
 					});
 				} else {
-					res.render('error.html', { raw: err });
+					render.raw = err;
+					res.render('error.html', render);
 				}
 			});
 		});
@@ -71,17 +73,9 @@ module.exports = {
 
 					res.render('lick.html', render);
 				} else {
-					res.render('error.html', { raw: err });
+					render.raw = err;
+					res.render('error.html', render);
 				}
-			});
-		});
-
-		app.get('/getMoreLicks/:lastID', function(req, res) {
-			var lastID = req.params.lastID;
-
-			// retrieve more reports using the last ID
-			db.getMoreReports(lastID, function(err, licks){
-				res.send({ data: licks, err: err })
 			});
 		});
 
@@ -114,7 +108,7 @@ module.exports = {
 						notes: req.body.notes || null
 					};
 
-
+					// if no lick timestamp was provided, error
 					if (!videoData.lick_start) {
 						render.raw = "Failed to add reporting as a lick occurrence timestamp was provided neither explicitly nor in the video URL. (Please indicate when the lick occurs)";
 						res.render('error.html', render);
@@ -132,19 +126,20 @@ module.exports = {
 									// redirect to lick page for the newly added lick sighting
 									res.redirect('/lick/' + uid);
 								} else {
+									// render error
 									render.raw = err;
-
-									// register error
 									res.render('error.html', render);
 								}
 							});
 						});
 					}
 				} else {
-					res.render('error.html', { raw: "Failed to extract YouTube video ID from provided URL." });
+					render.raw = "Failed to extract YouTube video ID from provided URL.";
+					res.render('error.html', render);
 				}
 			} else {
-				res.render('error.html', { raw: "Failed to add report as no URL was provided." });
+				render.raw = "Failed to add report as no URL was provided.";
+				res.render('error.html', render);
 			}
 		});
 
@@ -176,6 +171,16 @@ module.exports = {
 			});
 		});
 
+		// request more licks to load onto the homepage (on user scroll)
+		app.get('/getMoreLicks/:lastID', function(req, res) {
+			var lastID = req.params.lastID;
+
+			// retrieve more reports using the last ID
+			db.getMoreReports(lastID, function(err, licks){
+				res.send({ data: licks, err: err })
+			});
+		});
+
 	}
 
 }
@@ -183,6 +188,7 @@ module.exports = {
 // default render object for each page
 function rend(req) {
 	return {
-		isModerator: req.isAuthenticated()	// register if the user is a moderator (allow deletions)
+		isModerator: req.isAuthenticated(),		// register if the user is a moderator (allow deletions)
+		site_name: sys.SITE_NAME				// get site name for all navbars
 	};
 }

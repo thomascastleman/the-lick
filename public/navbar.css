@@ -7,7 +7,7 @@
 }
 
 h1 {
-    font-family: 'Permanent Marker', sans-serif;
+    font-family: 'Permanent Marker', sans-serif !important;
     font-size: 37px;
 }
 
@@ -20,7 +20,6 @@ html, body {
     position: fixed;
     top: 0;
     width: 100%;
-    font-family: 'Averia Sans Libre';
     font-size: 14px;
     background-color: #4d88ff;
 }
