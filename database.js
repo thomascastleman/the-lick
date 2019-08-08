@@ -8,7 +8,7 @@ const mysql = require('mysql');
 const sys = require('./settings.js')
 const moment = require('moment');
 
-const con = mysql.createConnection({
+const con = mysql.createPool({
 	host: 'localhost',
 	user: creds.MySQL_username,
 	password: creds.MySQL_password,
