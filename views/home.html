@@ -58,7 +58,7 @@
 		<h1>Recent Sightings</h1>
 		<table class="lickTable">
 			{{#recentLicks}}
-			<tr>
+			<tr onclick="window.location.href='/lick/{{uid}}';">
 				<td class="img-container">
 					<a href="/lick/{{uid}}"><img src="https://img.youtube.com/vi/{{video_id}}/hqdefault.jpg" height="117" width="156"></a>
 				</td>
@@ -92,7 +92,7 @@
 	   						var date = "<td> Reported " + data[rows].date_reported + ""
 	   						var reporterName = '';
 	   						if (data[rows].reporter_name){
-	   							reporterName = "by " + data[rows].reporter_name + "";
+	   							reporterName = " by " + data[rows].reporter_name + "";
 	   						}
 	   						$( ".lickTable" ).append('<tr>' + uid + thumbnail + videoTitle + date +  reporterName + '</td></tr>'); 
 	   					

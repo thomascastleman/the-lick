@@ -23,6 +23,7 @@ tr:first-child, tr:last-child {
 
 /* background change for hover on question row */
 tr:hover {
+	cursor: pointer;
 	background-color: #f2f2f2;
 }
 
@@ -73,7 +74,7 @@ video {
 
 /* container for all content */
 .container {
-	width: 65% !important;
+	width: 55% !important;
 
 	opacity: 0.7;
 
@@ -83,6 +84,8 @@ video {
 	float: right;
 	color: #666666;
 	font-size: 14px;
+	margin-top: 30px;
+	margin-bottom: 0;
 }
 
 .video-link {
