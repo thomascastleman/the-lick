@@ -36,6 +36,7 @@
 			} 
 		}
 	</script>
+	
 </head>
 <body>
 	<input type="hidden" id="refresh" value="no">
@@ -54,7 +55,7 @@
 	</div>
 	<!-- <div id="licks"></div> -->
 	<div class="container">
-		<h1>Recent Sightings</h1>
+		<h2>Recent Sightings</h2>
 		<table class="lickTable">
 			{{#recentLicks}}
 			<tr>
@@ -69,7 +70,7 @@
 	</div>
 </body>
 <script>
-	var last_id = 0;
+	var last_id = 200;
 	var end = false;
 	$(window).scroll(function() {
 	   if($(window).scrollTop() + $(window).height() == $(document).height()) {
@@ -88,7 +89,7 @@
 	   						var date = "<td> Reported " + data[rows].date_reported + ""
 	   						var reporterName = '';
 	   						if (data[rows].reporter_name){
-	   							reporterName = " by " + data[rows].reporter_name + "";
+	   							reporterName = "by " + data[rows].reporter_name + "";
 	   						}
 	   						$( ".lickTable" ).append('<tr>' + uid + thumbnail + videoTitle + date +  reporterName + '</td></tr>'); 
 	   					
@@ -109,7 +110,7 @@
 	  				}
 
 	  			} else {
-	  				$( ".lickTable" ).append("<h1>ERRRRRRROOORRRR</h1>")
+	  				//$( ".lickTable" ).append("<h1>ERRRRRRROOORRRR</h1>")
 	  			}
 
 			});

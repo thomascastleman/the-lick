@@ -34,7 +34,7 @@ module.exports = {
 	getMoreReports: function(last_id, cb){
 		var reloadRate = settings.reloadRate;
 		last_id = parseInt(last_id);
-		con.query('SELECT * from reportings LIMIT ?, ? ;',[last_id, last_id+reloadRate], function(err, licks){
+		con.query('SELECT * from reportings ORDER BY uid DESC LIMIT ?, ? ;',[last_id, last_id+reloadRate], function(err, licks){
 			if (!err && licks !== undefined){
 				for (var row = 0; row < licks.length; row++){
 					// parse date reported into human readable format
@@ -65,7 +65,7 @@ module.exports = {
 
 	// get a limited amount of reportings
 	getReportingsLimited: function(limit, cb) {
-		con.query('SELECT * from reportings;', [limit], function(err, licks){
+		con.query('SELECT * from reportings ORDER BY uid DESC LIMIT ?;', [limit], function(err, licks){
 			if (!err){
 				cb(err, licks);
 			} else {
