@@ -10,10 +10,6 @@ iframe {
 	/*width: 60%;*/
 }
 
-#report-meta {
-	float: left;
-}
-
 #delete {
 	float:right;
 	color: white !important;
@@ -37,6 +33,7 @@ iframe {
 }
 
 #report-meta {
+	float: left;
 	color: #666666;
 	font-size: 14px;
 }

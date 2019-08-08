@@ -4,6 +4,10 @@ body {
 
 }
 
+table {
+	margin: auto;
+	width: 100%;
+}
 
 .header {
 	text-align:left;
@@ -44,5 +48,17 @@ video {
 /* container for all content */
 .container {
 	width: 65% !important;
+
 	opacity: 0.7;
+
+}
+
+.report-meta {
+	float: right;
+	color: #666666;
+	font-size: 14px;
+}
+
+.video-link {
+	font-size: 20px;
 }
