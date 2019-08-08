@@ -1,4 +1,17 @@
 
+@import 'https://fonts.googleapis.com/css?family=Cabin';
+@import 'https://fonts.googleapis.com/css?family=Permanent+Marker';
+
+* {
+    font-family: 'Cabin', sans-serif;
+}
+
+h1 {
+    font-family: 'Permanent Marker', sans-serif;
+    font-size: 37px;
+}
+
+
 html, body {
     margin: 0;
     padding: 0;
@@ -41,7 +54,16 @@ html, body {
 	margin-left: 3px;
 }
 
-/* push regular container content down past sticky navbar */
+/* defaults for container of all content */
 .container {
-    margin-top: 100px;
+    width: 60%;
+    margin: auto;
+    margin-top: 90px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #e6e6e6;
+    box-shadow: 0 0 20px #000;
 }
