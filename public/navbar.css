@@ -3,8 +3,11 @@
 @import 'https://fonts.googleapis.com/css?family=Permanent+Marker';
 
 body {
-    background-image: url('/bg_compressed.jpg');
+    background-image: url('/bg/newbg_blur.jpg');
     background-attachment: fixed;
+    background-size: cover;
+   /* background-size: 400px;
+    background-repeat: repeat;*/
 }
 
 * {
@@ -66,7 +69,7 @@ html, body {
 
 /* defaults for container of all content */
 .container {
-    opacity: 0.8;
+    opacity: 0.85;
     width: 60%;
     margin: auto;
     margin-top: 90px;
@@ -82,6 +85,7 @@ html, body {
 
 a {
     text-decoration: none;
+    /*font-weight: bold;*/
     color: #4d88ff;
 }
 
