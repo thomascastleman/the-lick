@@ -43,7 +43,6 @@ module.exports = {
 
 					licks[row].reporter_exists = licks[row].reporter_name !== null;
 				}
-				console.log(licks);
 				cb(err, licks);
 			} else {
 				cb(err || "Failed to retrieve more licks.");
@@ -66,7 +65,7 @@ module.exports = {
 
 	// get a limited amount of reportings
 	getReportingsLimited: function(limit, cb) {
-		con.query('SELECT * from reportings ORDER BY date_reported DESC LIMIT ?;', [limit], function(err, licks){
+		con.query('SELECT * from reportings', [limit], function(err, licks){
 			if (!err){
 				cb(err, licks);
 			} else {
