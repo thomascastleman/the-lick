@@ -14,7 +14,7 @@ module.exports = {
 	},
 
 	// site name that appears in top lefthand corner of navbar
-	SITE_NAME: 'thelick.com',
+	SITE_NAME: 'thelick.space',
 
 	// number of recent reports to display on homepage
 	REPORTS_ON_HOME_TABLE: 200,

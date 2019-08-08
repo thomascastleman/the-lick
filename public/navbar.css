@@ -13,8 +13,9 @@ body {
 
 h1 {
     font-family: 'Permanent Marker', sans-serif !important;
-    font-size: 37px;
+    font-size: 45px;
     user-select: none;
+    /*text-shadow: 0 0 26px #000;*/
 }
 
 html, body {
@@ -77,10 +78,6 @@ html, body {
     background-color: #e6e6e6;
     box-shadow: 0 0 20px #000;
     min-width: 790px;
-}
-
-#home-link {
-    font-size: 17px;
 }
 
 a {
