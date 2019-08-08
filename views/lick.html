@@ -29,8 +29,8 @@
 		var player;
 		function onYouTubeIframeAPIReady() {
 			player = new YT.Player('lick', {
-				height: '390',
-				width: '640',
+				height: '468', // '390',
+				width: '768', // '640',
 				videoId: '{{report.video_id}}',
 				events: {
 					'onReady': onPlayerReady,
@@ -60,7 +60,7 @@
 	</div>
 	<div class="container">
 		{{#report}} 
-		 	{{#title_exists}}<a href="{{url}}"><h1>{{video_title}}</h1></a>{{/title_exists}}
+		 	{{#title_exists}}<a href="{{url}}"><h1 id="video-title">{{video_title}}</h1></a>{{/title_exists}}
 			<!-- <iframe width="560" height="315" src="https://youtube.com/embed/{{video_id}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> <br> -->
 			<div id="lick"></div>
 			<p>The lick occurs at <a href="#" onclick="player.seekTo({{lick_start}});">{{lick_start_string}}</a></p>

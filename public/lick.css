@@ -1,12 +1,13 @@
 
 .container {
 	overflow: hidden;
+	width: 72%;
 }
 
 iframe {
 	display: block;
 	margin: auto;
-	width: 80%;
+	/*width: 60%;*/
 }
 
 #report-meta {
@@ -43,3 +44,13 @@ iframe {
 p {
 	font-size: 18px;
 }
+
+#video-title {
+	font-size: 33px;
+	color: #333333;
+}
+
+#video-title:hover {
+	color: #595959;
+}
+
