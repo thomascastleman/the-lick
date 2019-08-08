@@ -2,6 +2,11 @@
 @import 'https://fonts.googleapis.com/css?family=Cabin';
 @import 'https://fonts.googleapis.com/css?family=Permanent+Marker';
 
+body {
+    background-image: url('/bg_compressed.jpg');
+    background-attachment: fixed;
+}
+
 * {
     font-family: 'Cabin', sans-serif;
 }
@@ -60,6 +65,7 @@ html, body {
 
 /* defaults for container of all content */
 .container {
+    opacity: 0.8;
     width: 60%;
     margin: auto;
     margin-top: 90px;
@@ -70,6 +76,7 @@ html, body {
     padding-right: 20px;
     background-color: #e6e6e6;
     box-shadow: 0 0 20px #000;
+    min-width: 790px;
 }
 
 #home-link {
@@ -82,5 +89,9 @@ a {
 }
 
 a:hover {
+    color: #80aaff;
+}
 
+iframe {
+    opacity: 1;
 }
