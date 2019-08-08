@@ -5,7 +5,7 @@
 
 var creds = require('./credentials.js');
 var mysql = require('mysql');
-var settings = require('./settings.js')
+var sys = require('./settings.js')
 var moment = require('moment');
 
 var con = mysql.createConnection({
@@ -31,30 +31,45 @@ module.exports = {
 		});
 	},
 
-	getMoreReports: function(last_id, cb){
-		var reloadRate = settings.reloadRate;
+	// remove a reporting from the db
+	deleteReporting: function(uid, cb) {
+		// ensure UID exists
+		if (uid) {
+			// make delete query
+			con.query('DELETE FROM reportings WHERE uid = ?;', [uid], cb);
+		} else {
+			cb("Failed to remove reporting as no identifier provided.");
+		}
+	},
+
+	// retrieve more lick reports to load onto the homepage as a user scrolls
+	getMoreReports: function(last_id, cb) {
+		var reloadRate = sys.SCROLL_RELOAD_RATE;	// get system reload rate
 		last_id = parseInt(last_id);
-		con.query('SELECT * from reportings ORDER BY uid DESC LIMIT ?, ? ;',[last_id, last_id+reloadRate], function(err, licks){
+
+		// select more reports from reportings table
+		con.query('SELECT * from reportings ORDER BY uid DESC LIMIT ?, ? ;', [last_id, last_id + reloadRate], function(err, licks){
 			if (!err && licks !== undefined){
 				for (var row = 0; row < licks.length; row++){
 					// parse date reported into human readable format
 					var d = moment(licks[row].date_reported);
 					if (d && d.isValid()) licks[row].date_reported = d.format('MMMM Do, YYYY [at] h:mm A');
 
+					// check if a reporter name exists, for mustache
 					licks[row].reporter_exists = licks[row].reporter_name !== null;
 				}
+
+				// callback successfully on the extra licks
 				cb(err, licks);
 			} else {
 				cb(err || "Failed to retrieve more licks.");
 			}
-
 		});
-
 	},
 
 	// get a random subset of lick reportings
 	getRandomReportings: function(limit, cb){
-		con.query('SELECT * from reportings ORDER BY RAND() LIMIT ?;',[limit], function(err, licks){
+		con.query('SELECT * from reportings ORDER BY RAND() LIMIT ?;', [limit], function(err, licks){
 			if (!err && licks !== undefined){
 				cb(err, licks);
 			} else {
@@ -63,8 +78,8 @@ module.exports = {
 		});
 	},
 
-	// get a limited amount of reportings
-	getReportingsLimited: function(limit, cb) {
+	// get a limited amount of the most recent reportings
+	getRecentReportings: function(limit, cb) {
 		con.query('SELECT * from reportings ORDER BY uid DESC LIMIT ?;', [limit], function(err, licks){
 			if (!err){
 				cb(err, licks);
@@ -74,7 +89,7 @@ module.exports = {
 		});
 	},
 
-	// get the reporting information by UID
+	// get a single reporting's information by UID
 	getReporting: function(uid, cb){
 		con.query('SELECT * from reportings where uid = ?;', [uid], function(err, rows){
 			if (!err && rows !== undefined && rows.length > 0) {
@@ -82,14 +97,6 @@ module.exports = {
 			} else {
 				cb(err || "Failed to retrieve reporting information.");
 			}
-		});
-	},
-
-	// removes a report from database
-	deleteReporting: function(uid, cb) {
-		// make delete query
-		con.query('DELETE FROM reportings WHERE uid = ?;', [uid], function(err) {
-			cb(err);
 		});
 	},
 
@@ -101,17 +108,6 @@ module.exports = {
 			con.query('INSERT INTO moderators (name, email) VALUES (?, ?);', [name, email], cb);
 		} else {
 			cb("Failed to add moderator as not all fields were supplied.");
-		}
-	},
-
-	// remove a reporting from the db
-	deleteReporting: function(uid, cb) {
-		// ensure UID exists
-		if (uid) {
-			// make delete query
-			con.query('DELETE FROM reportings WHERE uid = ?;', [uid], cb);
-		} else {
-			cb("Failed to remove reporting as no identifier provided.");
 		}
 	}
 }

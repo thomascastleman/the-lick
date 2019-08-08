@@ -18,12 +18,12 @@ module.exports = {
 			var render = rend(req);
 
 			// get all video IDs
-			db.getRandomReportings(sys.reportsOnHomeVideos,function(err, video_ids){
+			db.getRandomReportings(sys.VIDEOS_IN_RAND_SUBSET, function(err, video_ids) {
 				if (!err) {
 					render.video_ids = video_ids;
 
 					// get subset of reportings
-					db.getReportingsLimited(sys.reportsOnHomeTable, function(err, licks) {
+					db.getRecentReportings(sys.REPORTS_ON_HOME_TABLE, function(err, licks) {
 						if (!err) {
 							render.recentLicks = licks;
 
@@ -37,11 +37,13 @@ module.exports = {
 
 							res.render('home.html', render);
 						} else {
-							res.render('error.html', { raw: err });
+							render.raw = err;
+							res.render('error.html', render);
 						}
 					});
 				} else {
-					res.render('error.html', { raw: err });
+					render.raw = err;
+					res.render('error.html', render);
 				}
 			});
 		});
@@ -71,7 +73,8 @@ module.exports = {
 
 					res.render('lick.html', render);
 				} else {
-					res.render('error.html', { raw: err });
+					render.raw = err;
+					res.render('error.html', render);
 				}
 			});
 		});
@@ -132,19 +135,20 @@ module.exports = {
 									// redirect to lick page for the newly added lick sighting
 									res.redirect('/lick/' + uid);
 								} else {
+									// render error
 									render.raw = err;
-
-									// register error
 									res.render('error.html', render);
 								}
 							});
 						});
 					}
 				} else {
-					res.render('error.html', { raw: "Failed to extract YouTube video ID from provided URL." });
+					render.raw = "Failed to extract YouTube video ID from provided URL.";
+					res.render('error.html', render);
 				}
 			} else {
-				res.render('error.html', { raw: "Failed to add report as no URL was provided." });
+				render.raw = "Failed to add report as no URL was provided.";
+				res.render('error.html', render);
 			}
 		});
 
@@ -183,6 +187,7 @@ module.exports = {
 // default render object for each page
 function rend(req) {
 	return {
-		isModerator: req.isAuthenticated()	// register if the user is a moderator (allow deletions)
+		isModerator: req.isAuthenticated(),		// register if the user is a moderator (allow deletions)
+		site_name: sys.SITE_NAME				// get site name for all navbars
 	};
 }
