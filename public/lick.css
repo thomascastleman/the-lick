@@ -1,4 +1,7 @@
 
+.container {
+	overflow: hidden;
+}
 
 iframe {
 	display: block;
@@ -6,15 +9,20 @@ iframe {
 	width: 80%;
 }
 
+#report-meta {
+	float: left;
+}
+
 #delete {
+	float:right;
 	color: white !important;
 	background-color: #ff3333;
-	padding: 10px;
+	padding: 5px;
 	border-radius: 4px;
 	border: none;
 	margin-top: 15px;
 	margin-bottom: 15px;
-	font-size: 14px;
+	font-size: 12px;
 }
 
 #delete:hover {
@@ -23,7 +31,7 @@ iframe {
 }
 
 .icon {
-	font-size: 17px;
+	font-size: 12px;
 	margin-left: 5px;
 }
 
