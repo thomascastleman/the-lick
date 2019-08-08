@@ -3,7 +3,7 @@
 @import 'https://fonts.googleapis.com/css?family=Permanent+Marker';
 
 body {
-    background-image: url('/bg/newbg_blur.jpg');
+    background-image: url('/bg/otherbg_blur.jpg');
     background-attachment: fixed;
     background-size: cover;
    /* background-size: 400px;
@@ -31,7 +31,8 @@ html, body {
     top: 0;
     width: 100%;
     font-size: 14px;
-    background-color: #4d88ff;
+    /*background-color: #4d88ff;*/
+    background-color: rgba(0, 0, 0, 0.24);
     z-index:3;
 }
 
@@ -56,10 +57,12 @@ html, body {
     text-align: center;
     padding: 16px 16px;
     text-decoration: none;
+    /*border-radius: 3px;*/
 }
 
 .navbar li a:hover {
-    background-color: #6699ff;
+    background-color: rgba(0, 0, 0, 0.1);
+    /*background-color: #6699ff;*/
 }
 
 /* push text titles for each link away from their icons */
@@ -69,7 +72,7 @@ html, body {
 
 /* defaults for container of all content */
 .container {
-    opacity: 0.85;
+    opacity: 0.88;
     width: 60%;
     margin: auto;
     margin-top: 90px;
