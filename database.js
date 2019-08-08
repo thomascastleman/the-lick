@@ -65,7 +65,7 @@ module.exports = {
 
 	// get a limited amount of reportings
 	getReportingsLimited: function(limit, cb) {
-		con.query('SELECT * from reportings', [limit], function(err, licks){
+		con.query('SELECT * from reportings;', [limit], function(err, licks){
 			if (!err){
 				cb(err, licks);
 			} else {
