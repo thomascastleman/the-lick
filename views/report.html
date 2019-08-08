@@ -25,7 +25,7 @@
 <body>
 	<div class="navbar">
 		<ul>
-			<li><a href="/">The Lick</a></li>
+			<li id="home-link"><strong><a href="/">thelick.com</a></strong></li>
 			<div style="float:right">
 				<li><a href="/report">Report a Sighting <i class="fas fa-search"></i></a></li>
 				{{^isModerator}}<li><a href="/login">Moderator Login <i class="fas fa-sign-in-alt"></i></a></li>{{/isModerator}}
@@ -39,16 +39,16 @@
 	<div class="container">
 		<h1>Report a Sighting of the Lick</h1>
 		<form action="/report" method="POST">
-			<input name="url" type="text" placeholder="YouTube Video URL" autocomplete="off"><br>
-			<input name="lick_start" placeholder="Time of Lick Occurrence (hh:mm:ss or mm:ss)" autocomplete="off"><br>
+			<i class="icon fab fa-youtube"></i><input id="url" name="url" type="text" placeholder="YouTube Video URL" autocomplete="off"><br>
+			<i class="icon far fa-clock"></i><input id="lick_start" name="lick_start" placeholder="Time of Lick Occurrence (hh:mm:ss or mm:ss)" autocomplete="off"><br>
 
 			<h3 id="optional-toggle">Optional Fields <i id="show-more-icon" class="fas fa-chevron-down"></i></h3>
 			<div id="optional" hidden>
-				<p>Notes:</p><textarea name="notes"></textarea><br>
-				<input name="reporter_name" type="text" placeholder="Your Name" autocomplete="off">
+				<p id="notes">Notes:</p><textarea name="notes"></textarea><br>
+				<input id="reporter-name" name="reporter_name" type="text" placeholder="Your Name" autocomplete="off">
 			</div>
 
-			<button type="submit">Report Lick</button>
+			<button id="report" type="submit">Report Lick <i class="fas fa-check-circle"></i></button>
 		</form>
 	</div>
 </body>
