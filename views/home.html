@@ -66,6 +66,7 @@
 	<!-- <div id="licks"></div> -->
 	<div class="container">
 		<h1>Recent Sightings</h1>
+		{{#anyLicksExist}}
 		<table class="lickTable">
 			{{#recentLicks}}
 			<tr onclick="window.location.href='/lick/{{uid}}';">
@@ -79,7 +80,11 @@
 			</tr>
 			{{/recentLicks}}
 		</table>
-	</div>
+		{{/anyLicksExist}}
+
+		{{^anyLicksExist}}
+		<p>It appears there are no sightings of the lick yet. Report one <a href="/report">here</a>.</p>
+		{{/anyLicksExist}}
 	</div>
 </body>
 <script>

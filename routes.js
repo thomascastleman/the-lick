@@ -25,8 +25,6 @@ module.exports = {
 					// get subset of reportings
 					db.getRecentReportings(sys.REPORTS_ON_HOME_TABLE, function(err, licks) {
 						if (!err) {
-							render.recentLicks = licks;
-
 							for (var row = 0; row < licks.length; row++){
 								// parse date reported into human readable format
 								var d = moment(licks[row].date_reported);
@@ -34,6 +32,10 @@ module.exports = {
 
 								licks[row].reporter_exists = licks[row].reporter_name !== null;
 							}
+
+							// add licks and their existence status to render object
+							render.recentLicks = licks;
+							render.anyLicksExist = licks.length > 0;
 
 							res.render('home.html', render);
 						} else {
