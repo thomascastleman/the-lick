@@ -38,7 +38,7 @@ module.exports = {
 			// make delete query
 			con.query('DELETE FROM reportings WHERE uid = ?;', [uid], cb);
 		} else {
-			cb("Failed to remove reporting as no identifier provided.");
+			cb("Failed to remove lick report as no identifier provided.");
 		}
 	},
 
@@ -95,7 +95,7 @@ module.exports = {
 			if (!err && rows !== undefined && rows.length > 0) {
 				cb(err, rows[0]);
 			} else {
-				cb(err || "Failed to retrieve reporting information.");
+				cb(err || "Failed to retrieve lick information.");
 			}
 		});
 	},

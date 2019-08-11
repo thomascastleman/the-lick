@@ -29,7 +29,10 @@ app.use(session({
 const auth = require('./auth.js').init(app, passport);
 const routes = require('./routes.js').init(app);
 
-// start server
+// unhandled routes redirect to home
+app.get('*', (req, res) => { res.redirect('/'); });
+
+// allow server to licken
 var server = app.listen(sys.PORT, function() {
 	console.log('The Lick server lickening on port %d', server.address().port);
 });
